@@ -5,8 +5,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { mockMaps, mockShapes } from "../../constants/mockObjects";
 
 import Sidebar from "../Sidebar/Sidebar";
+import BrowserTabs from "../BrowserTabs/BrowserTabs";
 import Search from "../Search/Search";
+import CardBrowser from "../CardBrowser/CardBrowser";
 import ObjectCard from "../ObjectCard/ObjectCard";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -32,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
   browserContainer: {
     gridColumn: 2,
     height: "100%",
+    width: "100%",
+    maxWidth: "960px",
+    paddingTop: "24px",
+  },
+  browserTitle: {
+    paddingLeft: "16px",
   },
 }));
 
@@ -39,6 +48,11 @@ function Overview() {
   const classes = useStyles();
 
   const [currentFolder, setCurrentFolder] = useState(0);
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
 
   return (
     <div className={classes.container}>
@@ -49,13 +63,12 @@ function Overview() {
         />
       </nav>
       <div className={classes.browserContainer}>
+        <div className={classes.browserTitle}>
+          <Typography variant="h4">Overview</Typography>
+          <BrowserTabs tabValue={tabValue} handleTabChange={handleTabChange} />
+        </div>
         <Search />
-        {Object.keys(mockMaps).map((map, i) => (
-          <ObjectCard object={mockMaps[map]} key={i} />
-        ))}
-        {Object.keys(mockShapes).map((shape, i) => (
-          <ObjectCard object={mockShapes[shape]} key={i} />
-        ))}
+        <CardBrowser cards={tabValue === 0 ? mockMaps : mockShapes} />
       </div>
     </div>
   );
