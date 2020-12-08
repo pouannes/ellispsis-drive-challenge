@@ -8,7 +8,8 @@ import Sidebar from "../Sidebar/Sidebar";
 import BrowserTabs from "../BrowserTabs/BrowserTabs";
 import Search from "../Search/Search";
 import BrowserToolbar from "../BrowserToolbar/BrowserToolbar";
-import CardBrowser from "../CardBrowser/CardBrowser";
+import ListCardBrowser from "../ListCardBrowser/ListCardBrowser";
+import MiniatureCardBrowser from "../MiniatureCardBrowser/MiniatureCardBrowser";
 import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -83,7 +84,11 @@ function Overview() {
           currentDisplay={currentDisplay}
           setCurrentDisplay={setCurrentDisplay}
         />
-        <CardBrowser cards={cards} />
+        {currentDisplay === 0 ? (
+          <ListCardBrowser cards={cards} />
+        ) : (
+          <MiniatureCardBrowser cards={cards} />
+        )}
       </div>
     </div>
   );
