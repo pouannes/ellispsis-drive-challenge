@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+import * as ROUTES from "./constants/routes";
+import Overview from "./components/Overview/Overview";
+import PersistentDrawer from "./components/PersistentDrawer/PersistentDrawer";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#0D2E4C",
+    },
+    secondary: {
+      main: "#C75B1C",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Switch>
+          <Route exact path={ROUTES.OVERVIEW}>
+            <PersistentDrawer>
+              <Overview />
+            </PersistentDrawer>
+          </Route>
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
 }
 
