@@ -1,7 +1,6 @@
 import React from "react";
 
 function ObjectCard({ object }) {
-  console.log(object);
   return (
     <div>
       <p>
