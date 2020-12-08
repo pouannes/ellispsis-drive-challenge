@@ -7,6 +7,7 @@ import { mockMaps, mockShapes } from "../../constants/mockObjects";
 import Sidebar from "../Sidebar/Sidebar";
 import BrowserTabs from "../BrowserTabs/BrowserTabs";
 import Search from "../Search/Search";
+import BrowserToolbar from "../BrowserToolbar/BrowserToolbar";
 import CardBrowser from "../CardBrowser/CardBrowser";
 import { Typography } from "@material-ui/core";
 
@@ -48,10 +49,18 @@ function Overview() {
 
   const [currentFolder, setCurrentFolder] = useState(0);
   const [tabValue, setTabValue] = useState(0);
+  const [sortBy, setSortBy] = useState("Last used");
+  const [currentDisplay, setCurrentDisplay] = useState(0);
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
   };
+
+  const handleSortByChange = (event) => {
+    setSortBy(event.target.value);
+  };
+
+  const cards = tabValue === 0 ? mockMaps : mockShapes;
 
   return (
     <div className={classes.container}>
@@ -67,7 +76,14 @@ function Overview() {
           <BrowserTabs tabValue={tabValue} handleTabChange={handleTabChange} />
         </div>
         <Search />
-        <CardBrowser cards={tabValue === 0 ? mockMaps : mockShapes} />
+        <BrowserToolbar
+          resultNumber={Object.keys(cards).length}
+          sortBy={sortBy}
+          handleSortByChange={handleSortByChange}
+          currentDisplay={currentDisplay}
+          setCurrentDisplay={setCurrentDisplay}
+        />
+        <CardBrowser cards={cards} />
       </div>
     </div>
   );

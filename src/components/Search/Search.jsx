@@ -8,11 +8,12 @@ import FiltersDrawer from "../FiltersDrawer/FiltersDrawer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginBottom: "50px",
+    marginBottom: "20px",
     maxWidth: "720px",
   },
   searchField: {
-    width: "70%",
+    width: "100%",
+    maxWidth: "480px",
     marginRight: "40px",
   },
   button: {

@@ -9,6 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   list: {
@@ -72,5 +73,10 @@ function FiltersDrawer({ open, setOpen }) {
     </div>
   );
 }
+
+FiltersDrawer.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+};
 
 export default FiltersDrawer;
