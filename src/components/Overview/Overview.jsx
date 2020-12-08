@@ -8,7 +8,6 @@ import Sidebar from "../Sidebar/Sidebar";
 import BrowserTabs from "../BrowserTabs/BrowserTabs";
 import Search from "../Search/Search";
 import CardBrowser from "../CardBrowser/CardBrowser";
-import ObjectCard from "../ObjectCard/ObjectCard";
 import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
