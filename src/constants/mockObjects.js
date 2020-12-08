@@ -2,7 +2,9 @@ const mockMaps = {
   granChaco: {
     name: "Gran Chaco",
     type: "map",
-    image_link: "gran_chaco_map.png",
+    favorite: true,
+    imageLink: "gran_chaco_map.png",
+    imageName: "granChacoMap",
     uploadStatus: "Uploaded",
     settings: {
       dummySetting: null,
@@ -15,7 +17,9 @@ const mockMaps = {
   spotAmazon: {
     name: "Spot Amazon",
     type: "map",
-    image_link: "spot_amazon_map.png",
+    favorite: false,
+    imageLink: "spot_amazon_map.png",
+    imageName: "spotAmazonMap",
     uploadStatus: "Uploaded",
     settings: {
       dummySetting: null,
@@ -28,7 +32,9 @@ const mockMaps = {
   harborSkySat: {
     name: "Harbor Sky Sat",
     type: "map",
-    image_link: "harbor_sky_sat_map.png",
+    favorite: true,
+    imageLink: "harbor_sky_sat_map.png",
+    imageName: "harborSkySatMap",
     uploadStatus: "In progress",
     settings: {
       dummySetting: null,
@@ -41,7 +47,9 @@ const mockMaps = {
   radarAmplitudeAmsterdam: {
     name: "Harbor Sky Sat",
     type: "map",
-    image_link: "radar_amplitude_amsterdam_map.png",
+    favorite: false,
+    imageLink: "radar_amplitude_amsterdam_map.png",
+    imageName: "radarAmplitudeAmsterdamMap",
     uploadStatus: "In progress",
     settings: {
       dummySetting: null,
@@ -57,7 +65,9 @@ const mockShapes = {
   granChaco: {
     name: "Gran Chaco",
     type: "shape",
-    image_link: "gran_chaco_shape.png",
+    favorite: false,
+    imageLink: "gran_chaco_shape.png",
+    imageName: "granChacoShape",
     uploadStatus: "Uploaded",
     settings: {
       dummySetting: null,
@@ -70,7 +80,9 @@ const mockShapes = {
   spotAmazon: {
     name: "Spot Amazon",
     type: "shape",
-    image_link: "spot_amazon_shape.png",
+    favorite: true,
+    imageLink: "spot_amazon_shape.png",
+    imageName: "spotAmazonShape",
     uploadStatus: "Uploaded",
     settings: {
       dummySetting: null,
@@ -83,7 +95,9 @@ const mockShapes = {
   harborSkySat: {
     name: "Harbor Sky Sat",
     type: "shape",
-    image_link: "harbor_sky_sat_shape.png",
+    favorite: false,
+    imageLink: "harbor_sky_sat_shape.png",
+    imageName: "harborSkySatShape",
     uploadStatus: "In progress",
     settings: {
       dummySetting: null,
@@ -94,9 +108,11 @@ const mockShapes = {
     created: "11/12/2020",
   },
   radarAmplitudeAmsterdam: {
-    name: "Harbor Sky Sat",
+    name: "Radar Amplitude Amsterdam",
     type: "shape",
-    image_link: "radar_amplitude_amsterdam_shape.png",
+    favorite: true,
+    imageLink: "radar_amplitude_amsterdam_shape.png",
+    imageName: "radarAmplitudeAmsterdamShape",
     uploadStatus: "In progress",
     settings: {
       dummySetting: null,
@@ -109,7 +125,9 @@ const mockShapes = {
   france: {
     name: "France",
     type: "shape",
-    image_link: "france_shape.png",
+    favorite: true,
+    imageLink: "france_shape.png",
+    imageName: "franceShape",
     uploadStatus: "In progress",
     settings: {
       dummySetting: null,
@@ -122,7 +140,9 @@ const mockShapes = {
   theNetherlands: {
     name: "The Netherlands",
     type: "shape",
-    image_link: "the_netherlands_shape.png",
+    favorite: false,
+    imageLink: "the_netherlands_shape.png",
+    imageName: "theNetherlandsShape",
     uploadStatus: "In progress",
     settings: {
       dummySetting: null,

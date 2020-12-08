@@ -53,6 +53,12 @@ function Overview() {
   const [sortBy, setSortBy] = useState("Last used");
   const [currentDisplay, setCurrentDisplay] = useState(0);
 
+  const [liveMockMaps, setLiveMockMaps] = useState(mockMaps);
+  const [liveMockShapes, setLiveMockShapes] = useState(mockShapes);
+
+  const cards = tabValue === 0 ? liveMockMaps : liveMockShapes;
+  const setCards = tabValue === 0 ? setLiveMockMaps : setLiveMockShapes;
+
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
   };
@@ -61,7 +67,17 @@ function Overview() {
     setSortBy(event.target.value);
   };
 
-  const cards = tabValue === 0 ? mockMaps : mockShapes;
+  const toggleCardFavorite = (card, cardName, type) => {
+    if (type === "map") {
+      let newMaps = { ...liveMockMaps };
+      newMaps[cardName].favorite = !card.favorite;
+      setLiveMockMaps(newMaps);
+    } else {
+      let newShapes = { ...liveMockShapes };
+      newShapes[cardName].favorite = !card.favorite;
+      setLiveMockShapes(newShapes);
+    }
+  };
 
   return (
     <div className={classes.container}>
@@ -85,9 +101,15 @@ function Overview() {
           setCurrentDisplay={setCurrentDisplay}
         />
         {currentDisplay === 0 ? (
-          <ListCardBrowser cards={cards} />
+          <ListCardBrowser
+            cards={cards}
+            toggleCardFavorite={toggleCardFavorite}
+          />
         ) : (
-          <MiniatureCardBrowser cards={cards} />
+          <MiniatureCardBrowser
+            cards={cards}
+            toggleCardFavorite={toggleCardFavorite}
+          />
         )}
       </div>
     </div>

@@ -2,12 +2,17 @@ import React from "react";
 
 import ListObjectCard from "../ListObjectCard/ListObjectCard";
 
-function ListCardBrowser({ cards }) {
+function ListCardBrowser({ cards, toggleCardFavorite }) {
   return (
     <div>
-      <p>List Card Browser</p>
       {Object.keys(cards).map((card, i) => (
-        <ListObjectCard object={cards[card]} key={i} />
+        <ListObjectCard
+          object={cards[card]}
+          key={i}
+          toggleCardFavorite={() =>
+            toggleCardFavorite(cards[card], card, cards[card].type)
+          }
+        />
       ))}
     </div>
   );
