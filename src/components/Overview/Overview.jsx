@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -14,16 +14,17 @@ const useStyles = makeStyles((theme) => ({
     top: "64px",
     left: "0",
     width: "100vw",
+    maxWidth: "1800px",
     display: "grid",
-    gridTemplateColumns: "96px 1fr 96px",
+    gridTemplateColumns: "172px 1fr 172px",
     gridGap: "32px",
   },
   sidebarContainer: {
     gridColumn: 1,
     position: "sticky",
     top: 0,
+    paddingTop: "24px",
     height: "calc(100vh - 64px)",
-    backgroundColor: "grey",
   },
   browserContainer: {
     gridColumn: 2,
@@ -34,15 +35,23 @@ const useStyles = makeStyles((theme) => ({
 function Overview() {
   const classes = useStyles();
 
+  const [currentFolder, setCurrentFolder] = useState(0);
+
   return (
     <div className={classes.container}>
       <nav className={classes.sidebarContainer}>
-        <Sidebar />
+        <Sidebar
+          currentFolder={currentFolder}
+          setCurrentFolder={setCurrentFolder}
+        />
       </nav>
       <div className={classes.browserContainer}>
         <Search />
         {Object.keys(mockMaps).map((map, i) => (
           <ObjectCard object={mockMaps[map]} key={i} />
+        ))}
+        {Object.keys(mockShapes).map((shape, i) => (
+          <ObjectCard object={mockShapes[shape]} key={i} />
         ))}
       </div>
     </div>

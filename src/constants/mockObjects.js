@@ -1,6 +1,7 @@
 const mockMaps = {
   map1: {
     name: "Paris City",
+    type: "map",
     uploadStatus: "Uploaded",
     settings: {
       dummySetting: null,
@@ -12,6 +13,7 @@ const mockMaps = {
   },
   map2: {
     name: "Ede City",
+    type: "map",
     uploadStatus: "In progress",
     settings: {
       dummySetting: null,
@@ -25,7 +27,8 @@ const mockMaps = {
 
 const mockShapes = {
   triangle: {
-    name: "Triangle shape",
+    name: "Triangle",
+    type: "shape",
     uploadStatus: "Uploaded",
     settings: {
       dummySetting: null,
