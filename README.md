@@ -5,7 +5,7 @@
 The following are some ideas of improvements to the page:
 - Better handling of overflow issues
   - For the titles of the objects
-  - For the avatar of collaborators
+- Virtualized lists
 
 
 ## Available Scripts

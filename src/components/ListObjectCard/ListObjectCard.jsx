@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { StarTwoTone, Star } from "@material-ui/icons";
 import PropTypes from "prop-types";
+import clsx from "clsx";
 import * as IMAGES_OBJECT from "../../images/objects";
 import * as IMAGES_USERS from "../../images/users";
 import mockUsers from "../../constants/mockUsers";
@@ -86,24 +87,29 @@ const useStyles = makeStyles((theme) => ({
   contentTitle: {
     flex: "1 1 0%",
     marginRight: "16px",
-    fontSize: "1.3rem",
+    fontSize: "1.5rem",
   },
   titleContainer: {
     display: "flex",
     flex: "1 1 0%",
   },
-  ownerPhoto: {
-    width: "25px",
-    height: "25px",
-    marginRight: "8px",
+  ownerTextContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "40px",
+  },
+  avatarPhoto: {
+    width: "40px",
+    height: "40px",
     position: "relative",
     borderRadius: "50%",
   },
+  ownerPhoto: {
+    marginRight: "8px",
+  },
   collaboratorPhoto: {
-    width: "25px",
-    height: "25px",
-    position: "relative",
-    borderRadius: "50%",
+    marginRight: "8px",
   },
   activeStar: {
     color: "#f2b01e",
@@ -120,9 +126,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     alignItems: "flex-end",
     paddingBottom: "4px",
+    height: "44px",
   },
   collaboratorContainer: {
     display: "flex",
+    flexDirection: "column",
+  },
+  collaboratorPhotosContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
   },
   divider: {
     margin: "0px 32px 0px 0px",
@@ -131,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ListObjectCard({ object, toggleCardFavorite }) {
   const classes = useStyles({ uploadStatus: object.uploadStatus });
+  console.log(object);
   return (
     <>
       <Card className={classes.card}>
@@ -161,7 +174,13 @@ function ListObjectCard({ object, toggleCardFavorite }) {
           <div className={classes.contentTitleContainer}>
             <div className={classes.titleContainer}>
               <div style={{ display: "block" }}>
-                <Typography style={{ fontSize: "0.75rem", fontWeight: "300" }}>
+                <Typography
+                  style={{
+                    fontSize: "0.75rem",
+                    fontWeight: "300",
+                    marginBottom: "2px",
+                  }}
+                >
                   Last edited: {object.lastEdited}
                 </Typography>
                 <Typography className={classes.contentTitle}>
@@ -173,22 +192,64 @@ function ListObjectCard({ object, toggleCardFavorite }) {
           <div className={classes.avatarContainer}>
             <div className={classes.ownerContainer}>
               <CardMedia
-                className={classes.ownerPhoto}
+                className={clsx(classes.avatarPhoto, classes.ownerPhoto)}
                 title={object.ownerName}
                 image={IMAGES_USERS[object.ownerName]}
               />
-              <Typography style={{ fontWeight: "200", fontSize: "0.9rem" }}>
-                {mockUsers[object.ownerName].name}
-              </Typography>
+              <div className={classes.ownerTextContainer}>
+                <Typography
+                  style={{
+                    fontSize: "0.8rem",
+                    fontWeight: "100",
+                    flexGrow: "1",
+                    color: "rgb(96,96,96)",
+                  }}
+                >
+                  Owner
+                </Typography>
+                <Typography
+                  style={{
+                    fontWeight: "200",
+                    fontSize: "1.3rem",
+                    lineHeight: "1",
+                  }}
+                >
+                  {mockUsers[object.ownerName].name}
+                </Typography>
+              </div>
             </div>
             <div className={classes.collaboratorContainer}>
-              {object.collaborators.map((collaborator) => (
-                <CardMedia
-                  className={classes.collaboratorPhoto}
-                  title={collaborator}
-                  image={IMAGES_USERS[collaborator]}
-                />
-              ))}
+              {object.collaborators.length > 0 ? (
+                <>
+                  <Typography
+                    style={{
+                      marginBottom: "6px",
+                      fontWeight: "100",
+                      color: "rgb(96,96,96)",
+                      fontSize: "0.8rem",
+                      alignSelf: "flex-end",
+                      marginRight: "8px",
+                    }}
+                  >
+                    Collaborator{object.collaborators.length === 1 ? "" : "s"}
+                  </Typography>
+                  <div className={classes.collaboratorPhotosContainer}>
+                    {object.collaborators.slice(0, 5).map((collaborator, i) => (
+                      <CardMedia
+                        key={i}
+                        className={clsx(
+                          classes.avatarPhoto,
+                          classes.collaboratorPhoto
+                        )}
+                        title={collaborator}
+                        image={IMAGES_USERS[collaborator]}
+                      />
+                    ))}
+                  </div>{" "}
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </CardContent>
