@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -47,23 +47,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Overview() {
+function Overview({ Fuse }) {
   const classes = useStyles();
 
   // 0 for my 'projects', 1 for 'shared with me', 2 for 'favorites'
   const [currentFolder, setCurrentFolder] = useState(0);
   // 0 for 'maps', 1 for 'shapes'
   const [tabValue, setTabValue] = useState(0);
-  // 0 for 'Last used', 1 for 'First used',
+  // 0 for 'Last edited', 1 for 'First edited',
   // 2 for 'Decreasing size', 3 for 'Increasing size'
   const [sortBy, setSortBy] = useState(0);
   // 0 for list display, 1 for miniature display
   const [currentDisplay, setCurrentDisplay] = useState(0);
-
+  const [searchValue, setSearchValue] = useState("");
+  // clone of mockMaps/Shapes, to be able to freely modify them
   const [liveMockMaps, setLiveMockMaps] = useState(mockMaps);
   const [liveMockShapes, setLiveMockShapes] = useState(mockShapes);
+  // Use to display
+  const [searchResult, setSearchResult] = useState(mockMaps);
 
-  const cards = tabValue === 0 ? liveMockMaps : liveMockShapes;
+  const fuseMaps = new Fuse(liveMockMaps, {
+    keys: ["name", "ownerName", "collaborators"],
+    includeScore: true,
+  });
+  const fuseShapes = new Fuse(liveMockShapes, {
+    keys: ["name", "ownerName", "collaborators"],
+    includeScore: true,
+  });
 
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
@@ -73,14 +83,51 @@ function Overview() {
     setSortBy(event.target.value);
   };
 
-  const toggleCardFavorite = (card, cardName, type) => {
+  const handleSearchValueChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  // reset search bar on tab change
+  // TODO: this is dodgy, do it better
+  useEffect(() => {
+    setSearchValue("");
+  }, [tabValue]);
+  // update fuse search if array change
+  useEffect(() => {
+    fuseMaps.setCollection(liveMockMaps);
+  }, [liveMockMaps]);
+  useEffect(() => {
+    fuseShapes.setCollection(liveMockShapes);
+  }, [liveMockShapes]);
+
+  // search on search input
+  // TODO: better handle fuseMaps/Shapes dependency
+  useEffect(() => {
+    if (searchValue.length > 0) {
+      if (tabValue === 0) {
+        setSearchResult(fuseMaps.search(searchValue).map((res) => res.item));
+      } else {
+        setSearchResult(fuseShapes.search(searchValue).map((res) => res.item));
+      }
+    } else {
+      setSearchResult(tabValue === 0 ? liveMockMaps : liveMockShapes);
+    }
+  }, [searchValue, tabValue]);
+
+  const toggleCardFavorite = (cardName, type) => {
     if (type === "map") {
-      let newMaps = { ...liveMockMaps };
-      newMaps[cardName].favorite = !card.favorite;
+      let newMaps = [...liveMockMaps];
+      newMaps = newMaps.map((map) =>
+        map.name === cardName ? { ...map, favorite: !map.favorite } : map
+      );
       setLiveMockMaps(newMaps);
     } else {
-      let newShapes = { ...liveMockShapes };
-      newShapes[cardName].favorite = !card.favorite;
+      let newShapes = [...liveMockShapes];
+      newShapes = newShapes.map((shape) =>
+        shape.name === cardName
+          ? { ...shape, favorite: !shape.favorite }
+          : shape
+      );
       setLiveMockShapes(newShapes);
     }
   };
@@ -98,9 +145,13 @@ function Overview() {
           <Typography variant="h4">Overview</Typography>
           <BrowserTabs tabValue={tabValue} handleTabChange={handleTabChange} />
         </div>
-        <Search />
+        <Search
+          searchValue={searchValue}
+          handleSearchValueChange={handleSearchValueChange}
+          tabValue={tabValue}
+        />
         <BrowserToolbar
-          resultNumber={Object.keys(cards).length}
+          resultNumber={Object.keys(searchResult).length}
           sortBy={sortBy}
           handleSortByChange={handleSortByChange}
           currentDisplay={currentDisplay}
@@ -108,12 +159,12 @@ function Overview() {
         />
         {currentDisplay === 0 ? (
           <ListCardBrowser
-            cards={cards}
+            cards={searchResult}
             toggleCardFavorite={toggleCardFavorite}
           />
         ) : (
           <MiniatureCardBrowser
-            cards={cards}
+            cards={searchResult}
             toggleCardFavorite={toggleCardFavorite}
           />
         )}

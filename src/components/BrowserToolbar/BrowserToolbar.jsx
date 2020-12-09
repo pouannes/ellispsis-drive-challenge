@@ -80,10 +80,10 @@ function BrowserToolbar({
           classes={{ root: `${classes.selectRoot}` }}
         >
           <MenuItem classes={{ root: `${classes.menuItemRoot}` }} value={0}>
-            Last used
+            Last edited
           </MenuItem>
           <MenuItem classes={{ root: `${classes.menuItemRoot}` }} value={1}>
-            First used
+            First edited
           </MenuItem>
           <MenuItem classes={{ root: `${classes.menuItemRoot}` }} value={2}>
             Decreasing size

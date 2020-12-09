@@ -3,6 +3,7 @@ import React from "react";
 import { Button, makeStyles, Input, InputAdornment } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import TuneIcon from "@material-ui/icons/Tune";
+import PropTypes from "prop-types";
 
 import FiltersDrawer from "../FiltersDrawer/FiltersDrawer";
 
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchField: {
     width: "100%",
-    maxWidth: "480px",
+    maxWidth: "580px",
     marginRight: "40px",
   },
   button: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Search() {
+function Search({ searchValue, handleSearchValueChange, tabValue }) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -37,8 +38,14 @@ function Search() {
     <>
       <div className={classes.container}>
         <Input
-          id="input-with-icon-adornment"
           className={classes.searchField}
+          value={searchValue}
+          onChange={handleSearchValueChange}
+          placeholder={
+            tabValue === 0
+              ? "Search for map name, owner name, names of collaborators..."
+              : "Search for shape name, owner name, names of collaborators..."
+          }
           startAdornment={
             <InputAdornment position="start">
               <SearchIcon />
@@ -59,5 +66,11 @@ function Search() {
     </>
   );
 }
+
+Search.propTypes = {
+  searchValue: PropTypes.string.isRequired,
+  handleSearchValueChange: PropTypes.func.isRequired,
+  tabValue: PropTypes.number.isRequired,
+};
 
 export default Search;

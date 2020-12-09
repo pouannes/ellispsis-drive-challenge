@@ -1,21 +1,25 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import ListObjectCard from "../ListObjectCard/ListObjectCard";
 
 function ListCardBrowser({ cards, toggleCardFavorite }) {
   return (
     <div>
-      {Object.keys(cards).map((card, i) => (
+      {cards.map((card, i) => (
         <ListObjectCard
-          object={cards[card]}
+          object={card}
           key={i}
-          toggleCardFavorite={() =>
-            toggleCardFavorite(cards[card], card, cards[card].type)
-          }
+          toggleCardFavorite={() => toggleCardFavorite(card.name, card.type)}
         />
       ))}
     </div>
   );
 }
+
+ListCardBrowser.propTypes = {
+  cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  toggleCardFavorite: PropTypes.func.isRequired,
+};
 
 export default ListCardBrowser;

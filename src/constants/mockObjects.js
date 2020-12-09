@@ -1,5 +1,5 @@
-const mockMaps = {
-  granChaco: {
+const mockMaps = [
+  {
     name: "Gran Chaco",
     type: "map",
     favorite: true,
@@ -19,7 +19,7 @@ const mockMaps = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  spotAmazon: {
+  {
     name: "Spot Amazon",
     type: "map",
     favorite: false,
@@ -34,7 +34,7 @@ const mockMaps = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  harborSkySat: {
+  {
     name: "Harbor Sky Sat",
     type: "map",
     favorite: true,
@@ -49,8 +49,8 @@ const mockMaps = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  radarAmplitudeAmsterdam: {
-    name: "Harbor Sky Sat",
+  {
+    name: "Radar Amplitude Amsterdam",
     type: "map",
     favorite: false,
     imageLink: "radar_amplitude_amsterdam_map.png",
@@ -64,10 +64,10 @@ const mockMaps = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-};
+];
 
-const mockShapes = {
-  france: {
+const mockShapes = [
+  {
     name: "France",
     type: "shape",
     favorite: true,
@@ -82,7 +82,7 @@ const mockShapes = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  theNetherlands: {
+  {
     name: "The Netherlands",
     type: "shape",
     favorite: false,
@@ -97,7 +97,7 @@ const mockShapes = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  granChaco: {
+  {
     name: "Gran Chaco",
     type: "shape",
     favorite: false,
@@ -112,7 +112,7 @@ const mockShapes = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  spotAmazon: {
+  {
     name: "Spot Amazon",
     type: "shape",
     favorite: true,
@@ -127,7 +127,7 @@ const mockShapes = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  harborSkySat: {
+  {
     name: "Harbor Sky Sat",
     type: "shape",
     favorite: false,
@@ -142,7 +142,7 @@ const mockShapes = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-  radarAmplitudeAmsterdam: {
+  {
     name: "Radar Amplitude Amsterdam",
     type: "shape",
     favorite: true,
@@ -157,6 +157,6 @@ const mockShapes = {
     lastEdited: "12/12/2020",
     created: "11/12/2020",
   },
-};
+];
 
 export { mockMaps, mockShapes };
