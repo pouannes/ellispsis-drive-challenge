@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ObjectDisplay({ object, toggleCardFavorite }) {
-  const classes = useStyles();
+  const classes = useStyles({ uploadStatus: object.uploadStatus });
   return (
     <div className={classes.mediaContainer}>
       <CardMedia

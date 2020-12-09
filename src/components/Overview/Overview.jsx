@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-
+import { Typography } from "@material-ui/core";
 import { mockMaps, mockShapes } from "../../constants/mockObjects";
 
 import Sidebar from "../Sidebar/Sidebar";
@@ -10,8 +10,7 @@ import Search from "../Search/Search";
 import BrowserToolbar from "../BrowserToolbar/BrowserToolbar";
 import ListCardBrowser from "../ListCardBrowser/ListCardBrowser";
 import MiniatureCardBrowser from "../MiniatureCardBrowser/MiniatureCardBrowser";
-import { Typography } from "@material-ui/core";
-import Fuse from "fuse.js";
+import useResultReducer from "../../hooks/useResultReducer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -48,50 +47,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFuseState = {
-  fuseMaps: new Fuse(mockMaps, {
-    keys: ["name", "ownerName", "collaborators"],
-    includeScore: true,
-  }),
-  fuseShapes: new Fuse(mockShapes, {
-    keys: ["name", "ownerName", "collaborators"],
-    includeScore: true,
-  }),
-  searchResult: [],
-};
-
-function fuseReducer(state, action) {
-  switch (action.type) {
-    case "updateFuseMaps":
-      state.fuseMaps.setCollection(action.payload);
-      return { ...state };
-    case "updateFuseShapes":
-      state.fuseShapes.setCollection(action.payload);
-      return { ...state };
-    case "updateMapsSearch":
-      return {
-        ...state,
-        searchResult: state.fuseMaps
-          .search(action.payload)
-          .map((res) => res.item),
-      };
-    case "updateShapesSearch":
-      return {
-        ...state,
-        searchResult: state.fuseShapes
-          .search(action.payload)
-          .map((res) => res.item),
-      };
-    case "resetSearchResult":
-      return {
-        ...state,
-        searchResult: action.payload,
-      };
-    default:
-      throw new Error();
-  }
-}
-
 function Overview() {
   const classes = useStyles();
 
@@ -109,7 +64,7 @@ function Overview() {
   const [liveMockMaps, setLiveMockMaps] = useState(mockMaps);
   const [liveMockShapes, setLiveMockShapes] = useState(mockShapes);
   // handle search with Fuse
-  const [searchResults, dispatch] = useReducer(fuseReducer, initialFuseState);
+  const [searchResults, dispatch] = useResultReducer();
 
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
@@ -123,19 +78,50 @@ function Overview() {
     setSearchValue(event.target.value);
   };
 
+  // TODO: there's some pretty big redundancy in the following 4 `useEffect`s
+  // I can probably combine them into one useReducer for better design
+  // and optimization
+
   // reset search bar on tab change
   useEffect(() => {
     setSearchValue("");
   }, [tabValue]);
+
   // update fuse search if array change
   useEffect(() => {
     dispatch({ type: "updateFuseMaps", payload: liveMockMaps });
-  }, [liveMockMaps]);
+  }, [liveMockMaps, dispatch]);
   useEffect(() => {
     dispatch({ type: "updateFuseShapes", payload: liveMockShapes });
-  }, [liveMockShapes]);
+  }, [liveMockShapes, dispatch]);
 
-  // search on search input
+  // Switch folders
+  useEffect(() => {
+    if (currentFolder === 0) {
+      dispatch({
+        type: "resetSearchResult",
+        payload: tabValue === 0 ? liveMockMaps : liveMockShapes,
+      });
+      if (searchValue.length > 0) {
+        dispatch(
+          tabValue === 0
+            ? { type: "updateMapsSearch", payload: searchValue }
+            : { type: "updateShapesSearch", payload: searchValue }
+        );
+      }
+    } else if (currentFolder === 2) {
+      dispatch({ type: "filterFavorites" });
+    }
+  }, [
+    currentFolder,
+    tabValue,
+    searchValue,
+    liveMockShapes,
+    liveMockMaps,
+    dispatch,
+  ]);
+
+  // search on search change
   useEffect(() => {
     if (searchValue.length > 0) {
       if (tabValue === 0) {
@@ -148,8 +134,18 @@ function Overview() {
         type: "resetSearchResult",
         payload: tabValue === 0 ? liveMockMaps : liveMockShapes,
       });
+      if (currentFolder === 2) {
+        dispatch({ type: "filterFavorites" });
+      }
     }
-  }, [searchValue, tabValue, liveMockMaps, liveMockShapes]);
+  }, [
+    searchValue,
+    tabValue,
+    currentFolder,
+    liveMockMaps,
+    liveMockShapes,
+    dispatch,
+  ]);
 
   const toggleCardFavorite = (cardName, type) => {
     if (type === "map") {

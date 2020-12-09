@@ -10,6 +10,7 @@
 - Implement the `Miniature` view
 - Implement the object `Settings` view
 - Deploy on Firebase + CD
+- Make the page fully responsive
 
 ## Improvements
 
