@@ -4,7 +4,6 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import * as ROUTES from "./constants/routes";
 import Overview from "./components/Overview/Overview";
 import PersistentDrawer from "./components/PersistentDrawer/PersistentDrawer";
-import Fuse from "fuse.js";
 
 const theme = createMuiTheme({
   palette: {
@@ -25,7 +24,7 @@ function App() {
         <Switch>
           <Route exact path={ROUTES.OVERVIEW}>
             <PersistentDrawer>
-              <Overview Fuse={Fuse} />
+              <Overview />
             </PersistentDrawer>
           </Route>
         </Switch>

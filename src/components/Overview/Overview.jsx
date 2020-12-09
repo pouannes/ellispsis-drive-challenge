@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -11,6 +11,7 @@ import BrowserToolbar from "../BrowserToolbar/BrowserToolbar";
 import ListCardBrowser from "../ListCardBrowser/ListCardBrowser";
 import MiniatureCardBrowser from "../MiniatureCardBrowser/MiniatureCardBrowser";
 import { Typography } from "@material-ui/core";
+import Fuse from "fuse.js";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -47,7 +48,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Overview({ Fuse }) {
+const initialFuseState = {
+  fuseMaps: new Fuse(mockMaps, {
+    keys: ["name", "ownerName", "collaborators"],
+    includeScore: true,
+  }),
+  fuseShapes: new Fuse(mockShapes, {
+    keys: ["name", "ownerName", "collaborators"],
+    includeScore: true,
+  }),
+  searchResult: [],
+};
+
+function fuseReducer(state, action) {
+  switch (action.type) {
+    case "updateFuseMaps":
+      state.fuseMaps.setCollection(action.payload);
+      return { ...state };
+    case "updateFuseShapes":
+      state.fuseShapes.setCollection(action.payload);
+      return { ...state };
+    case "updateMapsSearch":
+      return {
+        ...state,
+        searchResult: state.fuseMaps
+          .search(action.payload)
+          .map((res) => res.item),
+      };
+    case "updateShapesSearch":
+      return {
+        ...state,
+        searchResult: state.fuseShapes
+          .search(action.payload)
+          .map((res) => res.item),
+      };
+    case "resetSearchResult":
+      return {
+        ...state,
+        searchResult: action.payload,
+      };
+    default:
+      throw new Error();
+  }
+}
+
+function Overview() {
   const classes = useStyles();
 
   // 0 for my 'projects', 1 for 'shared with me', 2 for 'favorites'
@@ -63,17 +108,8 @@ function Overview({ Fuse }) {
   // clone of mockMaps/Shapes, to be able to freely modify them
   const [liveMockMaps, setLiveMockMaps] = useState(mockMaps);
   const [liveMockShapes, setLiveMockShapes] = useState(mockShapes);
-  // Use to display
-  const [searchResult, setSearchResult] = useState(mockMaps);
-
-  const fuseMaps = new Fuse(liveMockMaps, {
-    keys: ["name", "ownerName", "collaborators"],
-    includeScore: true,
-  });
-  const fuseShapes = new Fuse(liveMockShapes, {
-    keys: ["name", "ownerName", "collaborators"],
-    includeScore: true,
-  });
+  // handle search with Fuse
+  const [searchResults, dispatch] = useReducer(fuseReducer, initialFuseState);
 
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
@@ -88,31 +124,32 @@ function Overview({ Fuse }) {
   };
 
   // reset search bar on tab change
-  // TODO: this is dodgy, do it better
   useEffect(() => {
     setSearchValue("");
   }, [tabValue]);
   // update fuse search if array change
   useEffect(() => {
-    fuseMaps.setCollection(liveMockMaps);
+    dispatch({ type: "updateFuseMaps", payload: liveMockMaps });
   }, [liveMockMaps]);
   useEffect(() => {
-    fuseShapes.setCollection(liveMockShapes);
+    dispatch({ type: "updateFuseShapes", payload: liveMockShapes });
   }, [liveMockShapes]);
 
   // search on search input
-  // TODO: better handle fuseMaps/Shapes dependency
   useEffect(() => {
     if (searchValue.length > 0) {
       if (tabValue === 0) {
-        setSearchResult(fuseMaps.search(searchValue).map((res) => res.item));
+        dispatch({ type: "updateMapsSearch", payload: searchValue });
       } else {
-        setSearchResult(fuseShapes.search(searchValue).map((res) => res.item));
+        dispatch({ type: "updateShapesSearch", payload: searchValue });
       }
     } else {
-      setSearchResult(tabValue === 0 ? liveMockMaps : liveMockShapes);
+      dispatch({
+        type: "resetSearchResult",
+        payload: tabValue === 0 ? liveMockMaps : liveMockShapes,
+      });
     }
-  }, [searchValue, tabValue]);
+  }, [searchValue, tabValue, liveMockMaps, liveMockShapes]);
 
   const toggleCardFavorite = (cardName, type) => {
     if (type === "map") {
@@ -151,7 +188,7 @@ function Overview({ Fuse }) {
           tabValue={tabValue}
         />
         <BrowserToolbar
-          resultNumber={Object.keys(searchResult).length}
+          resultNumber={Object.keys(searchResults.searchResult).length}
           sortBy={sortBy}
           handleSortByChange={handleSortByChange}
           currentDisplay={currentDisplay}
@@ -159,12 +196,12 @@ function Overview({ Fuse }) {
         />
         {currentDisplay === 0 ? (
           <ListCardBrowser
-            cards={searchResult}
+            cards={searchResults.searchResult}
             toggleCardFavorite={toggleCardFavorite}
           />
         ) : (
           <MiniatureCardBrowser
-            cards={searchResult}
+            cards={searchResults.searchResult}
             toggleCardFavorite={toggleCardFavorite}
           />
         )}
