@@ -1,11 +1,23 @@
 # Ellipsis-Drive Challenge: overview
 
+## TODOS
+
+- Refactor the `Overview` components. In particular, move out the Fuse functions to a separate hook
+- Implement the `filters` drawer component and functionality
+- Add wiring to the left sidebar 
+- Add more examples of maps and shapes
+- Add wiring to the `sort` function
+- Implement the `Miniature` view
+- Implement the object `Settings` view
+- Deploy on Firebase + CD
+
 ## Improvements
 
 The following are some ideas of improvements to the page:
 - Better handling of overflow issues
   - For the titles of the objects
 - Virtualized lists
+- 
 
 
 ## Available Scripts
