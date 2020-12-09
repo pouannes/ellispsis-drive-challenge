@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     justifyItems: "center",
     justifyContent: "space-between",
     display: "grid",
+    // ok for normal, side cells need to be bigger for large/v. large screens
     gridTemplateColumns: "172px 1fr 172px",
     gridGap: "32px",
   },
@@ -30,15 +31,16 @@ const useStyles = makeStyles((theme) => ({
     gridColumn: 1,
     position: "sticky",
     top: 0,
-    paddingTop: "24px",
+    paddingTop: "34px",
     height: "calc(100vh - 64px)",
   },
   browserContainer: {
     gridColumn: 2,
     height: "100%",
     width: "100%",
-    maxWidth: "960px",
-    paddingTop: "24px",
+    // ok for normal, maybe need to be bigger for large/v. large screens
+    maxWidth: "840px",
+    paddingTop: "34px",
   },
   browserTitle: {
     paddingLeft: "16px",
@@ -48,9 +50,14 @@ const useStyles = makeStyles((theme) => ({
 function Overview() {
   const classes = useStyles();
 
+  // 0 for my 'projects', 1 for 'shared with me', 2 for 'favorites'
   const [currentFolder, setCurrentFolder] = useState(0);
+  // 0 for 'maps', 1 for 'shapes'
   const [tabValue, setTabValue] = useState(0);
-  const [sortBy, setSortBy] = useState("Last used");
+  // 0 for 'Last used', 1 for 'First used',
+  // 2 for 'Decreasing size', 3 for 'Increasing size'
+  const [sortBy, setSortBy] = useState(0);
+  // 0 for list display, 1 for miniature display
   const [currentDisplay, setCurrentDisplay] = useState(0);
 
   const [liveMockMaps, setLiveMockMaps] = useState(mockMaps);

@@ -8,8 +8,13 @@ import FiltersDrawer from "../FiltersDrawer/FiltersDrawer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    marginTop: "10px",
     marginBottom: "20px",
-    maxWidth: "720px",
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    // alignment with above and below
+    paddingRight: "26px",
   },
   searchField: {
     width: "100%",
@@ -17,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "40px",
   },
   button: {
-    position: "absolute",
-    // top: "0",
     padding: "4px 15px",
+    // same width as Display + 2 buttons below
+    width: "130.11px",
   },
 }));
 
@@ -29,27 +34,29 @@ function Search() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className={classes.container}>
-      <Input
-        id="input-with-icon-adornment"
-        className={classes.searchField}
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchIcon />
-          </InputAdornment>
-        }
-      />
-      <Button
-        variant="outlined"
-        color="primary"
-        endIcon={<TuneIcon />}
-        onClick={() => setOpen(true)}
-        classes={{ root: `${classes.button}` }}
-      >
-        Filters
-      </Button>
+    <>
+      <div className={classes.container}>
+        <Input
+          id="input-with-icon-adornment"
+          className={classes.searchField}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+        />
+        <Button
+          variant="outlined"
+          color="primary"
+          endIcon={<TuneIcon />}
+          onClick={() => setOpen(true)}
+          classes={{ root: `${classes.button}` }}
+        >
+          Filters
+        </Button>
+      </div>
       <FiltersDrawer open={open} setOpen={setOpen} />
-    </div>
+    </>
   );
 }
 

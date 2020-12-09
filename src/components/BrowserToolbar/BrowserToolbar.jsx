@@ -16,8 +16,9 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
-    marginBottom: "30px",
-    maxWidth: "635px", // to be aligned with the filters button above in medium+ screens
+    marginBottom: "15px",
+    // alignment with above and below
+    paddingRight: "26px",
   },
   results: {
     fontWeight: "600",
@@ -78,28 +79,16 @@ function BrowserToolbar({
           onChange={handleSortByChange}
           classes={{ root: `${classes.selectRoot}` }}
         >
-          <MenuItem
-            classes={{ root: `${classes.menuItemRoot}` }}
-            value={"Last used"}
-          >
+          <MenuItem classes={{ root: `${classes.menuItemRoot}` }} value={0}>
             Last used
           </MenuItem>
-          <MenuItem
-            classes={{ root: `${classes.menuItemRoot}` }}
-            value={"First used"}
-          >
+          <MenuItem classes={{ root: `${classes.menuItemRoot}` }} value={1}>
             First used
           </MenuItem>
-          <MenuItem
-            classes={{ root: `${classes.menuItemRoot}` }}
-            value={"Decreasing size"}
-          >
+          <MenuItem classes={{ root: `${classes.menuItemRoot}` }} value={2}>
             Decreasing size
           </MenuItem>
-          <MenuItem
-            classes={{ root: `${classes.menuItemRoot}` }}
-            value={"Increasing size"}
-          >
+          <MenuItem classes={{ root: `${classes.menuItemRoot}` }} value={3}>
             Increasing size
           </MenuItem>
         </Select>
@@ -139,7 +128,7 @@ function BrowserToolbar({
 
 BrowserToolbar.propTypes = {
   resultNumber: PropTypes.number.isRequired,
-  sortBy: PropTypes.string.isRequired,
+  sortBy: PropTypes.number.isRequired,
   handleSortByChange: PropTypes.func.isRequired,
   currentDisplay: PropTypes.number.isRequired,
   setCurrentDisplay: PropTypes.func.isRequired,
