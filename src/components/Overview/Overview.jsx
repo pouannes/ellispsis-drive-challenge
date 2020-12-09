@@ -57,7 +57,6 @@ function Overview() {
   const [liveMockShapes, setLiveMockShapes] = useState(mockShapes);
 
   const cards = tabValue === 0 ? liveMockMaps : liveMockShapes;
-  const setCards = tabValue === 0 ? setLiveMockMaps : setLiveMockShapes;
 
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);

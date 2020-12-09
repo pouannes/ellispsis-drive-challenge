@@ -9,7 +9,7 @@ import {
   IconButton,
   makeStyles,
 } from "@material-ui/core";
-import { StarTwoTone, Star } from "@material-ui/icons";
+import { StarTwoTone, Star, Settings } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import * as IMAGES_OBJECT from "../../images/objects";
@@ -92,6 +92,13 @@ const useStyles = makeStyles((theme) => ({
   titleContainer: {
     display: "flex",
     flex: "1 1 0%",
+    position: "relative",
+  },
+  settingsButton: {
+    position: "absolute",
+    right: "0",
+    top: "0",
+    padding: "0px 8px 0px 0px",
   },
   ownerTextContainer: {
     display: "flex",
@@ -123,10 +130,12 @@ const useStyles = makeStyles((theme) => ({
   },
   ownerContainer: {
     display: "flex",
-    alignItems: "center",
+    flexDirection: "column",
+  },
+  ownerContentContainer: {
+    display: "flex",
     alignItems: "flex-end",
-    paddingBottom: "4px",
-    height: "44px",
+    height: "40px",
   },
   collaboratorContainer: {
     display: "flex",
@@ -143,7 +152,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ListObjectCard({ object, toggleCardFavorite }) {
   const classes = useStyles({ uploadStatus: object.uploadStatus });
-  console.log(object);
   return (
     <>
       <Card className={classes.card}>
@@ -187,35 +195,54 @@ function ListObjectCard({ object, toggleCardFavorite }) {
                   {object.name}
                 </Typography>
               </div>
+              <IconButton
+                className={classes.settingsButton}
+                onClick={() => alert("settings clicked, to be implemented")}
+              >
+                <Settings fontSize="large" />
+              </IconButton>
             </div>
           </div>
           <div className={classes.avatarContainer}>
             <div className={classes.ownerContainer}>
-              <CardMedia
-                className={clsx(classes.avatarPhoto, classes.ownerPhoto)}
-                title={object.ownerName}
-                image={IMAGES_USERS[object.ownerName]}
-              />
-              <div className={classes.ownerTextContainer}>
-                <Typography
-                  style={{
-                    fontSize: "0.8rem",
-                    fontWeight: "100",
-                    flexGrow: "1",
-                    color: "rgb(96,96,96)",
-                  }}
-                >
-                  Owner
-                </Typography>
-                <Typography
-                  style={{
-                    fontWeight: "200",
-                    fontSize: "1.3rem",
-                    lineHeight: "1",
-                  }}
-                >
-                  {mockUsers[object.ownerName].name}
-                </Typography>
+              <Typography
+                style={{
+                  marginBottom: "6px",
+                  fontWeight: "100",
+                  color: "rgb(96,96,96)",
+                  fontSize: "0.8rem",
+                  alignSelf: "flex-start",
+                  marginRight: "8px",
+                }}
+              >
+                Owner
+              </Typography>{" "}
+              <div className={classes.ownerContentContainer}>
+                <CardMedia
+                  className={clsx(classes.avatarPhoto, classes.ownerPhoto)}
+                  title={mockUsers[object.ownerName].name}
+                  image={IMAGES_USERS[object.ownerName]}
+                />
+                <div className={classes.ownerTextContainer}>
+                  <Typography
+                    style={{
+                      fontSize: "0.9rem",
+                      flexGrow: "1",
+                      fontWeight: "200",
+                    }}
+                  >
+                    {mockUsers[object.ownerName].firstName}
+                  </Typography>
+                  <Typography
+                    style={{
+                      fontWeight: "200",
+                      fontSize: "1.3rem",
+                      lineHeight: "1",
+                    }}
+                  >
+                    {mockUsers[object.ownerName].lastName}
+                  </Typography>
+                </div>
               </div>
             </div>
             <div className={classes.collaboratorContainer}>
@@ -241,7 +268,7 @@ function ListObjectCard({ object, toggleCardFavorite }) {
                           classes.avatarPhoto,
                           classes.collaboratorPhoto
                         )}
-                        title={collaborator}
+                        title={mockUsers[collaborator].name}
                         image={IMAGES_USERS[collaborator]}
                       />
                     ))}
@@ -261,6 +288,7 @@ function ListObjectCard({ object, toggleCardFavorite }) {
 
 ListObjectCard.propTypes = {
   object: PropTypes.object.isRequired,
+  toggleCardFavorite: PropTypes.func.isRequired,
 };
 
 export default ListObjectCard;
