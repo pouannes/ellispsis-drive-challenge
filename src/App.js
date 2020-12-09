@@ -1,4 +1,11 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from "react";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import * as ROUTES from "./constants/routes";
@@ -26,6 +33,9 @@ function App() {
             <PersistentDrawer>
               <Overview />
             </PersistentDrawer>
+          </Route>
+          <Route exact path={ROUTES.INDEX}>
+            <Redirect to={ROUTES.OVERVIEW} />
           </Route>
         </Switch>
       </Router>
