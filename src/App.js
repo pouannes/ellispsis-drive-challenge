@@ -22,6 +22,15 @@ const theme = createMuiTheme({
       main: "#C75B1C",
     },
   },
+  breakpoints: {
+    values: {
+      xs: 620,
+      sm: 850,
+      md: 1040,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
 });
 
 function App() {

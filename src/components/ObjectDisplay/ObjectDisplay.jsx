@@ -10,8 +10,15 @@ import { StarTwoTone, Star, Settings } from "@material-ui/icons";
 
 import * as IMAGES_OBJECT from "../../images/objects";
 
+const CUSTOM_BREAKPOINT_DELTA = 170;
+
 const useStyles = makeStyles((theme) => ({
   mediaContainer: {
+    [theme.breakpoints.down(
+      theme.breakpoints.values.xs - CUSTOM_BREAKPOINT_DELTA
+    )]: {
+      width: "100% !important",
+    },
     width: "252px",
     height: "168px",
     marginRight: "8px",

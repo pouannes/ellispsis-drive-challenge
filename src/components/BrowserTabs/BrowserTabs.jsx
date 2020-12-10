@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "10px",
     marginTop: "10px",
     marginBottom: "6px",
+    [theme.breakpoints.down("xs")]: {
+      paddingBottom: "0px",
+    },
   },
   tabsIndicator: {
     display: "flex",

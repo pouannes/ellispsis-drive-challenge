@@ -3,29 +3,39 @@ import FolderOpenOutlinedIcon from "@material-ui/icons/FolderOpenOutlined";
 import FolderSharedOutlinedIcon from "@material-ui/icons/FolderSharedOutlined";
 import FolderSpecialOutlinedIcon from "@material-ui/icons/FolderSpecialOutlined";
 import IconButton from "@material-ui/core/IconButton";
+import Hidden from "@material-ui/core/Hidden";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import { makeStyles, useTheme, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 function Sidebar({ currentFolder, setCurrentFolder }) {
   return (
     <>
-      <IconLink
-        Icon={FolderOpenOutlinedIcon}
-        name="My Projects"
-        selected={currentFolder === 0}
-        changeFolder={() => setCurrentFolder(0)}
-      />
-      <IconLink
-        Icon={FolderSharedOutlinedIcon}
-        name="Shared with me"
-        selected={currentFolder === 1}
-        changeFolder={() => setCurrentFolder(1)}
-      />
-      <IconLink
-        Icon={FolderSpecialOutlinedIcon}
-        name="Favorites"
-        selected={currentFolder === 2}
-        changeFolder={() => setCurrentFolder(2)}
+      <Hidden xsDown>
+        <IconLink
+          Icon={FolderOpenOutlinedIcon}
+          name="My Projects"
+          selected={currentFolder === 0}
+          changeFolder={() => setCurrentFolder(0)}
+        />
+        <IconLink
+          Icon={FolderSharedOutlinedIcon}
+          name="Shared with me"
+          selected={currentFolder === 1}
+          changeFolder={() => setCurrentFolder(1)}
+        />
+        <IconLink
+          Icon={FolderSpecialOutlinedIcon}
+          name="Favorites"
+          selected={currentFolder === 2}
+          changeFolder={() => setCurrentFolder(2)}
+        />
+      </Hidden>
+
+      <MobileSidebar
+        currentFolder={currentFolder}
+        setCurrentFolder={setCurrentFolder}
       />
     </>
   );
@@ -88,6 +98,47 @@ IconLink.propTypes = {
   name: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
   changeFolder: PropTypes.func.isRequired,
+};
+
+const useMobileSidebarStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+}));
+
+const MobileSidebar = memo(({ currentFolder, setCurrentFolder }) => {
+  const classes = useMobileSidebarStyles();
+  return (
+    <BottomNavigation
+      value={currentFolder}
+      onChange={(event, newValue) => {
+        console.log(newValue);
+        setCurrentFolder(newValue);
+      }}
+      showLabels
+      className={classes.root}
+    >
+      <BottomNavigationAction
+        label="My Projects"
+        icon={<FolderOpenOutlinedIcon />}
+      />
+      <BottomNavigationAction
+        label="Shared with me"
+        icon={<FolderSharedOutlinedIcon />}
+      />
+      <BottomNavigationAction
+        label="Favorites"
+        icon={<FolderSpecialOutlinedIcon />}
+      />
+    </BottomNavigation>
+  );
+});
+
+MobileSidebar.propTypes = {
+  currentFolder: PropTypes.number.isRequired,
+  setCurrentFolder: PropTypes.func.isRequired,
 };
 
 export default memo(Sidebar);

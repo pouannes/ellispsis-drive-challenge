@@ -9,18 +9,42 @@ const useStyles = makeStyles((theme) => ({
     // display: "flex",
     // flexWrap: "wrap",
     // justifyContent: "space-between",
-    paddingRight: "26px",
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr",
-    "& div": {
-      "&:nth-child(3n + 1)": {
-        justifySelf: "start",
+    [theme.breakpoints.up("xs")]: {
+      gridTemplateColumns: "1fr 1fr",
+      "& div": {
+        "&:nth-child(2n + 1)": {
+          justifySelf: "start",
+        },
+        "&:nth-child(2n)": {
+          justifySelf: "end",
+        },
       },
-      "&:nth-child(3n + 2)": {
-        justifySelf: "center",
+    },
+    [theme.breakpoints.up("sm")]: {
+      paddingRight: "26px",
+      gridTemplateColumns: "1fr 1fr",
+      "& div": {
+        "&:nth-child(2n + 1)": {
+          justifySelf: "start",
+        },
+        "&:nth-child(2n)": {
+          justifySelf: "end",
+        },
       },
-      "&:nth-child(3n)": {
-        justifySelf: "end",
+    },
+    [theme.breakpoints.up("md")]: {
+      gridTemplateColumns: "1fr 1fr 1fr",
+      "& div": {
+        "&:nth-child(3n + 1)": {
+          justifySelf: "start",
+        },
+        "&:nth-child(3n + 2)": {
+          justifySelf: "center",
+        },
+        "&:nth-child(3n)": {
+          justifySelf: "end",
+        },
       },
     },
   },

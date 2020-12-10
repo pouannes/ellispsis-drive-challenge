@@ -15,7 +15,17 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     // alignment with above and below
-    paddingRight: "26px",
+    [theme.breakpoints.down("xs")]: {
+      paddingRight: "26px",
+      flexDirection: "column",
+    },
+    [theme.breakpoints.up("xs")]: {
+      paddingRight: "0px",
+      flexDirection: "row",
+    },
+    [theme.breakpoints.up("sm")]: {
+      paddingRight: "26px",
+    },
   },
   searchField: {
     width: "100%",
@@ -23,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "40px",
   },
   button: {
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "16px",
+    },
     padding: "4px 15px",
     // same width as Display + 2 buttons below
     width: "130.11px",

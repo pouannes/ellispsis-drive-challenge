@@ -11,6 +11,7 @@ import BrowserToolbar from "../BrowserToolbar/BrowserToolbar";
 import ListCardBrowser from "../ListCardBrowser/ListCardBrowser";
 import MiniatureCardBrowser from "../MiniatureCardBrowser/MiniatureCardBrowser";
 import useResultReducer from "../../hooks/useResultReducer";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -24,23 +25,82 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     display: "grid",
     // ok for normal, side cells need to be bigger for large/v. large screens
-    gridTemplateColumns: "172px 1fr 172px",
-    gridGap: "32px",
+    [theme.breakpoints.down("xs")]: {
+      gridTemplateColumns: "1fr",
+      gridTemplateRows: "1fr",
+    },
+    [theme.breakpoints.up("xs")]: {
+      gridTemplateColumns: "1fr",
+      gridTemplateRows: "1fr",
+    },
+    [theme.breakpoints.up("sm")]: {
+      gridTemplateColumns: "auto 1fr auto",
+      gridGap: "32px",
+    },
+    [theme.breakpoints.up("md")]: {
+      gridTemplateColumns: "auto auto auto",
+    },
+    [theme.breakpoints.up("lg")]: {
+      gridTemplateColumns: "172px 1fr 172px",
+    },
   },
   sidebarContainer: {
-    gridColumn: 1,
-    position: "sticky",
-    top: 0,
-    paddingTop: "34px",
-    height: "calc(100vh - 64px)",
+    [theme.breakpoints.down("xs")]: {
+      position: "sticky",
+      bottom: 0,
+      left: 0,
+      width: "100%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      gridColumn: 1,
+      position: "sticky",
+      top: 0,
+      paddingTop: "34px",
+      height: "calc(100vh - 64px)",
+    },
+    [theme.breakpoints.up("sm")]: {
+      minWidth: "131px",
+    },
   },
   browserContainer: {
-    gridColumn: 2,
-    height: "100%",
-    width: "100%",
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      gridColumn: 1,
+      gridRow: 1,
+      height: "calc(100vh - 48px - 56px - 24px)",
+      overflow: "scroll",
+      maxWidth: "730px",
+      paddingLeft: "7%",
+      paddingRight: "7%",
+    },
+    [theme.breakpoints.up("xs")]: {
+      width: "100%",
+      gridColumn: 1,
+      gridRow: 1,
+      height: "calc(100vh - 48px - 56px - 24px)",
+      overflow: "scroll",
+      minWidth: "620px",
+      maxWidth: "730px",
+      paddingLeft: "7%",
+      paddingRight: "7%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      minWidth: "550px",
+      maxWidth: "650px",
+      width: "100%",
+      gridColumn: 2,
+      height: "100%",
+      paddingTop: "34px",
+      paddingLeft: "5%",
+      paddingRight: "5%",
+    },
+    [theme.breakpoints.up("md")]: {
+      minWidth: "840px",
+      paddingLeft: "0px",
+      paddingRight: "0px",
+    },
     // ok for normal, maybe need to be bigger for large/v. large screens
     maxWidth: "840px",
-    paddingTop: "34px",
   },
   browserTitle: {
     paddingLeft: "16px",
@@ -65,6 +125,8 @@ function Overview() {
   const [liveMockShapes, setLiveMockShapes] = useState(mockShapes);
   // handle search with Fuse
   const [searchResults, dispatch] = useResultReducer();
+
+  const [width, height] = useWindowSize();
 
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
@@ -146,6 +208,13 @@ function Overview() {
     liveMockShapes,
     dispatch,
   ]);
+
+  // force miniature view if window size is small enough
+  useEffect(() => {
+    if (width < 1040 && currentDisplay === 0) {
+      setCurrentDisplay(1);
+    }
+  }, [width]);
 
   const toggleCardFavorite = (cardName, type) => {
     if (type === "map") {

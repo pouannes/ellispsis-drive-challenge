@@ -7,6 +7,7 @@ import {
   Select,
   MenuItem,
   IconButton,
+  Hidden,
 } from "@material-ui/core";
 
 import { ViewList, ViewModule } from "@material-ui/icons";
@@ -18,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginBottom: "15px",
     // alignment with above and below
-    paddingRight: "26px",
+    [theme.breakpoints.up("sm")]: {
+      paddingRight: "26px",
+    },
   },
   results: {
     fontWeight: "600",
@@ -94,33 +97,35 @@ function BrowserToolbar({
         </Select>
       </FormControl>
       <div className={classes.displayContainer}>
-        <Typography className={classes.displayText}>Display: </Typography>
-        <IconButton
-          color="primary"
-          disableFocusRipple
-          disableRipple
-          classes={{
-            root: `${classes.iconButtonRoot} ${
-              currentDisplay === 0 ? classes.selectedIconButton : ""
-            }`,
-          }}
-          onClick={() => setCurrentDisplay(0)}
-        >
-          <ViewList />
-        </IconButton>
-        <IconButton
-          color="primary"
-          disableFocusRipple
-          disableRipple
-          classes={{
-            root: `${classes.iconButtonRoot} ${
-              currentDisplay === 1 ? classes.selectedIconButton : ""
-            }`,
-          }}
-          onClick={() => setCurrentDisplay(1)}
-        >
-          <ViewModule />
-        </IconButton>
+        <Hidden smDown>
+          <Typography className={classes.displayText}>Display: </Typography>
+          <IconButton
+            color="primary"
+            disableFocusRipple
+            disableRipple
+            classes={{
+              root: `${classes.iconButtonRoot} ${
+                currentDisplay === 0 ? classes.selectedIconButton : ""
+              }`,
+            }}
+            onClick={() => setCurrentDisplay(0)}
+          >
+            <ViewList />
+          </IconButton>
+          <IconButton
+            color="primary"
+            disableFocusRipple
+            disableRipple
+            classes={{
+              root: `${classes.iconButtonRoot} ${
+                currentDisplay === 1 ? classes.selectedIconButton : ""
+              }`,
+            }}
+            onClick={() => setCurrentDisplay(1)}
+          >
+            <ViewModule />
+          </IconButton>
+        </Hidden>
       </div>
     </div>
   );
