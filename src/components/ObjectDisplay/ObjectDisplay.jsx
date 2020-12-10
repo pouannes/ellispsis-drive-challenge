@@ -6,7 +6,7 @@ import {
   IconButton,
   makeStyles,
 } from "@material-ui/core";
-import { StarTwoTone, Star } from "@material-ui/icons";
+import { StarTwoTone, Star, Settings } from "@material-ui/icons";
 
 import * as IMAGES_OBJECT from "../../images/objects";
 
@@ -43,6 +43,22 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "5px",
     marginRight: "5px",
   },
+  settingsIconButton: {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    padding: 0,
+    marginTop: "5px",
+    marginLeft: "5px",
+    color: "rgba(0, 0, 0, 0.75)",
+  },
+  settingsIcon: {
+    "& path": {
+      stroke: "#888",
+      strokeWidth: "0.8px",
+      strokeLinejoin: "round",
+    },
+  },
   iconSVG: {
     "& path": {
       "&:nth-child(1)": {
@@ -70,7 +86,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ObjectDisplay({ object, toggleCardFavorite }) {
+const StarIcons = memo(({ object, toggleCardFavorite }) => {
+  const classes = useStyles();
+  return (
+    <IconButton
+      className={classes.favoriteIconButton}
+      onClick={() => toggleCardFavorite()}
+    >
+      {object.favorite ? (
+        <Star fontSize="large" className={classes.activeStar} />
+      ) : (
+        <StarTwoTone
+          fontSize="large"
+          classes={{ root: `${classes.iconSVG}` }}
+        />
+      )}
+    </IconButton>
+  );
+});
+
+function ObjectDisplay({ object, toggleCardFavorite, version }) {
   const classes = useStyles({ uploadStatus: object.uploadStatus });
   return (
     <div className={classes.mediaContainer}>
@@ -79,19 +114,18 @@ function ObjectDisplay({ object, toggleCardFavorite }) {
         title={object.name}
         image={IMAGES_OBJECT[object.imageName]}
       />
-      <IconButton
-        className={classes.favoriteIconButton}
-        onClick={() => toggleCardFavorite()}
-      >
-        {object.favorite ? (
-          <Star fontSize="large" className={classes.activeStar} />
-        ) : (
-          <StarTwoTone
-            fontSize="large"
-            classes={{ root: `${classes.iconSVG}` }}
-          />
-        )}
-      </IconButton>
+      <StarIcons object={object} toggleCardFavorite={toggleCardFavorite} />
+      {version === "miniature" ? (
+        <IconButton
+          className={classes.settingsIconButton}
+          onClick={() => alert("settings still to be implemented!")}
+        >
+          <Settings fontSize="large" className={classes.settingsIcon} />
+        </IconButton>
+      ) : (
+        ""
+      )}
+
       <Typography className={classes.uploadText} variant="overline">
         Upload in progress
       </Typography>
@@ -102,6 +136,7 @@ function ObjectDisplay({ object, toggleCardFavorite }) {
 ObjectDisplay.propTypes = {
   object: PropTypes.object.isRequired,
   toggleCardFavorite: PropTypes.func.isRequired,
+  version: PropTypes.string,
 };
 
 export default memo(ObjectDisplay);

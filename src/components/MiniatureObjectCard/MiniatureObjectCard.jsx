@@ -1,14 +1,78 @@
-import React from "react";
+import React, { memo } from "react";
 
-function MiniatureObjectCard({ object }) {
+import { Card, CardContent, Divider, makeStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
+
+import ObjectDisplay from "../ObjectDisplay/ObjectDisplay";
+import CardOwnerSection from "../CardOwnerSection/CardOwnerSection";
+import CardCollaboratorContainer from "../CardCollaboratorContainer/CardCollaboratorContainer";
+import ListTitleSection from "../ListObjectCard/ListTitleSection";
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    width: "300px",
+    padding: "12px 12px 12px 0px",
+    margin: "6px 6px 6px 0px",
+    boxShadow: "0px 0px 0px white",
+    backgroundColor: "#fafafa",
+  },
+  content: {
+    padding: 0,
+    paddingBottom: "4px !important",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  contentTitleContainer: {
+    width: "100%",
+    display: "flex",
+    alignItems: "flex-start",
+    height: "fit-content",
+  },
+
+  avatarContainer: {
+    width: "100%",
+    flexGrow: 1,
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+  },
+
+  divider: {
+    margin: "0px 32px 0px 0px",
+  },
+}));
+
+function MiniatureObjectCard({ object, toggleCardFavorite }) {
+  const classes = useStyles({ uploadStatus: object.uploadStatus });
   return (
-    <div>
-      <p>
-        I'm the object {object.name} of type {object.type} displayed in a
-        miniature
-      </p>
-    </div>
+    <>
+      <Card className={classes.card}>
+        <ObjectDisplay
+          object={object}
+          toggleCardFavorite={toggleCardFavorite}
+          version="miniature"
+        />
+        <CardContent className={classes.content}>
+          <div className={classes.contentTitleContainer}>
+            <ListTitleSection object={object} />
+          </div>
+          <div className={classes.avatarContainer}>
+            <CardOwnerSection object={object} />
+            <CardCollaboratorContainer object={object} />
+          </div>
+        </CardContent>
+      </Card>
+      <Divider className={classes.divider} />
+    </>
   );
 }
 
-export default MiniatureObjectCard;
+MiniatureObjectCard.propTypes = {
+  object: PropTypes.object.isRequired,
+  toggleCardFavorite: PropTypes.func.isRequired,
+};
+
+export default memo(MiniatureObjectCard);

@@ -1,5 +1,22 @@
 # Ellipsis-Drive Challenge: overview
 
+## Short description of the features
+
+
+## Notes on the code and the implementation
+
+- The components are kept quite short on purpose, for better readability and maintainability. 
+- I didn't separate logic and layout in components, mainly because I feel that using functional components make this separation less relevant.
+- I kept the file structure quite flat because I feel it isn't large enough to do otherwise. In larger apps more hierarchy could be necessary.
+- The `Overview` page is served at `/overview` to mimic how it would be in a real app. `/` redirects to `/overview`.
+- Most of the colors are using the theme provided by the `Theme` context, so modifying most of the colors is a simple matter of modifying the `theme` object.
+- Styles object are kept in the same files as the components. They could be separated if either got too long.
+- The main libraries used are:
+  - `react-router-dom` for the small bit of routing used.
+  - `fuse.js` for the fuzzy search.
+  - `@material-ui/core` and `@material-ui/icons` as the UI library.
+  
+
 ## TODOS
 
 - Refactor the `Overview` components. In particular, move out the useEffects to its own reducer
@@ -11,7 +28,6 @@
 - Deploy on Firebase + CD
 - Make the page fully responsive
 - Bug: favorites + recherche ne garde pas les favoris
-- Add footer 
 - Add 'no results' when there's no search result
 
 ## Improvements

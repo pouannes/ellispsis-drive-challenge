@@ -52,6 +52,7 @@ function ListObjectCard({ object, toggleCardFavorite }) {
         <ObjectDisplay
           object={object}
           toggleCardFavorite={toggleCardFavorite}
+          version="list"
         />
         <CardContent className={classes.content}>
           <div className={classes.contentTitleContainer}>
