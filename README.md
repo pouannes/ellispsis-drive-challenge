@@ -27,6 +27,7 @@
 - CD
 - Bug: favorites + recherche ne garde pas les favoris
 - Add 'no results' when there's no search result
+- Bug: better handle the 'upload in progress' for different screen sizes'
 
 ## Improvements
 
