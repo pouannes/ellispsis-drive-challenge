@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   ownerText: {
-    marginBottom: "6px",
+    marginBottom: (props) => (props.variant === "miniature" ? "2px" : "6px"),
     fontWeight: "100",
     color: "rgb(96,96,96)",
     fontSize: "0.8rem",
@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "8px",
   },
   ownerFirstName: {
-    fontSize: "0.9rem",
+    fontSize: (props) => (props.variant === "miniature" ? "0.95rem" : "1rem"),
     flexGrow: "1",
     fontWeight: "200",
   },
   ownerLastName: {
     fontWeight: "200",
-    fontSize: "1.3rem",
+    fontSize: (props) => (props.variant === "miniature" ? "0.95rem" : "1rem"),
     lineHeight: "1",
   },
   ownerContentContainer: {
@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CardOwnerSection({ object }) {
-  const classes = useStyles();
+function CardOwnerSection({ object, variant }) {
+  const classes = useStyles({ variant });
   return (
     <div className={classes.ownerContainer}>
       <Typography className={classes.ownerText}>Owner</Typography>
@@ -78,6 +78,7 @@ function CardOwnerSection({ object }) {
 
 CardOwnerSection.propTypes = {
   object: PropTypes.object.isRequired,
+  variant: PropTypes.string,
 };
 
 export default memo(CardOwnerSection);

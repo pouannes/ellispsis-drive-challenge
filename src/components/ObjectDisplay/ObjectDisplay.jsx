@@ -12,8 +12,8 @@ import * as IMAGES_OBJECT from "../../images/objects";
 
 const useStyles = makeStyles((theme) => ({
   mediaContainer: {
-    width: "300px",
-    height: "200px",
+    width: "252px",
+    height: "168px",
     marginRight: "8px",
     position: "relative",
   },
@@ -50,11 +50,11 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     marginTop: "5px",
     marginLeft: "5px",
-    color: "rgba(0, 0, 0, 0.75)",
+    color: "rgba(0, 0, 0, 0.6)",
   },
   settingsIcon: {
     "& path": {
-      stroke: "#888",
+      stroke: "#aaa",
       strokeWidth: "0.8px",
       strokeLinejoin: "round",
     },
@@ -105,7 +105,7 @@ const StarIcons = memo(({ object, toggleCardFavorite }) => {
   );
 });
 
-function ObjectDisplay({ object, toggleCardFavorite, version }) {
+function ObjectDisplay({ object, toggleCardFavorite, variant }) {
   const classes = useStyles({ uploadStatus: object.uploadStatus });
   return (
     <div className={classes.mediaContainer}>
@@ -115,7 +115,7 @@ function ObjectDisplay({ object, toggleCardFavorite, version }) {
         image={IMAGES_OBJECT[object.imageName]}
       />
       <StarIcons object={object} toggleCardFavorite={toggleCardFavorite} />
-      {version === "miniature" ? (
+      {variant === "miniature" ? (
         <IconButton
           className={classes.settingsIconButton}
           onClick={() => alert("settings still to be implemented!")}
@@ -136,7 +136,7 @@ function ObjectDisplay({ object, toggleCardFavorite, version }) {
 ObjectDisplay.propTypes = {
   object: PropTypes.object.isRequired,
   toggleCardFavorite: PropTypes.func.isRequired,
-  version: PropTypes.string,
+  variant: PropTypes.string,
 };
 
 export default memo(ObjectDisplay);

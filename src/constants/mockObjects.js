@@ -68,21 +68,6 @@ const mockMaps = [
 
 const mockShapes = [
   {
-    name: "France",
-    type: "shape",
-    favorite: true,
-    imageLink: "france_shape.png",
-    imageName: "franceShape",
-    uploadStatus: "Uploaded",
-    settings: {
-      dummySetting: null,
-    },
-    ownerName: "RosalieMaas",
-    collaborators: [],
-    lastEdited: "11/12/2020",
-    created: "11/12/2020",
-  },
-  {
     name: "The Netherlands",
     type: "shape",
     favorite: false,
@@ -108,7 +93,16 @@ const mockShapes = [
       dummySetting: null,
     },
     ownerName: "RosalieMaas",
-    collaborators: ["FlorianLangelaar", "PierreOuannes", "DanielMaas"],
+    collaborators: [
+      "FlorianLangelaar",
+      "PierreOuannes",
+      "DanielMaas",
+      "MinghaiJiang",
+      "FlorianLangelaar",
+      "PierreOuannes",
+      "DanielMaas",
+      "MinghaiJiang",
+    ],
     lastEdited: "03/12/2020",
     created: "01/12/2020",
   },
@@ -141,6 +135,21 @@ const mockShapes = [
     collaborators: ["RosalieMaas"],
     lastEdited: "02/12/2020",
     created: "01/12/2020",
+  },
+  {
+    name: "France",
+    type: "shape",
+    favorite: true,
+    imageLink: "france_shape.png",
+    imageName: "franceShape",
+    uploadStatus: "Uploaded",
+    settings: {
+      dummySetting: null,
+    },
+    ownerName: "RosalieMaas",
+    collaborators: [],
+    lastEdited: "11/12/2020",
+    created: "11/12/2020",
   },
   {
     name: "Portugal",

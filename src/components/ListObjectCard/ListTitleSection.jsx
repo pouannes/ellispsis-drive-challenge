@@ -9,16 +9,22 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flex: "1 1 0%",
     position: "relative",
+    marginTop: (props) => (props.variant === "miniature" ? "6px" : ""),
   },
   lastEditedText: {
     fontSize: "0.75rem",
     fontWeight: "300",
-    marginBottom: "2px",
+    marginBottom: (props) => (props.variant === "miniature" ? "0px" : "2px"),
   },
   contentTitle: {
     flex: "1 1 0%",
-    marginRight: "16px",
-    fontSize: "1.5rem",
+    marginRight: (props) => (props.variant === "miniature" ? "0px" : "16px"),
+    fontSize: (props) => (props.variant === "miniature" ? "1.35rem" : "1.5rem"),
+    height: "32px",
+    width: (props) => (props.variant === "miniature" ? "252px" : "400px"),
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   settingsButton: {
     position: "absolute",
@@ -28,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListTitleSection({ object }) {
-  const classes = useStyles();
+function ListTitleSection({ object, variant }) {
+  const classes = useStyles({ variant });
   return (
     <div className={classes.titleContainer}>
       <div style={{ display: "block" }}>
@@ -38,18 +44,23 @@ function ListTitleSection({ object }) {
         </Typography>
         <Typography className={classes.contentTitle}>{object.name}</Typography>
       </div>
-      <IconButton
-        className={classes.settingsButton}
-        onClick={() => alert("settings clicked, to be implemented")}
-      >
-        <Settings fontSize="large" />
-      </IconButton>
+      {variant === "miniature" ? (
+        ""
+      ) : (
+        <IconButton
+          className={classes.settingsButton}
+          onClick={() => alert("settings clicked, to be implemented")}
+        >
+          <Settings fontSize="large" />
+        </IconButton>
+      )}
     </div>
   );
 }
 
 ListTitleSection.propTypes = {
   object: PropTypes.object.isRequired,
+  variant: PropTypes.string,
 };
 
 export default memo(ListTitleSection);

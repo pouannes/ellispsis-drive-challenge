@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   collaboratorText: {
-    marginBottom: "6px",
+    marginBottom: (props) => (props.variant === "miniature" ? "2px" : "6px"),
     fontWeight: "100",
     color: "rgb(96,96,96)",
     fontSize: "0.8rem",
@@ -33,10 +33,22 @@ const useStyles = makeStyles((theme) => ({
   collaboratorPhoto: {
     marginRight: "8px",
   },
+  moreCircle: {
+    width: "40px",
+    height: "40px",
+    lineHeight: "40px",
+    borderRadius: "50%",
+    fontSize: "0.95rem",
+    color: "black",
+    backgroundColor: "lightGrey",
+    textAlign: "center",
+    background: "#000",
+  },
 }));
 
-function CardCollaboratorContainer({ object }) {
-  const classes = useStyles();
+function CardCollaboratorContainer({ object, variant }) {
+  const classes = useStyles({ variant });
+  const maxDisplayedCollaborators = variant === "miniature" ? 2 : 5;
   return (
     <div className={classes.collaboratorContainer}>
       {object.collaborators.length > 0 ? (
@@ -45,14 +57,26 @@ function CardCollaboratorContainer({ object }) {
             Collaborator{object.collaborators.length === 1 ? "" : "s"}
           </Typography>
           <div className={classes.collaboratorPhotosContainer}>
-            {object.collaborators.slice(0, 5).map((collaborator, i) => (
-              <CardMedia
-                key={i}
-                className={clsx(classes.avatarPhoto, classes.collaboratorPhoto)}
-                title={mockUsers[collaborator].name}
-                image={IMAGES_USERS[collaborator]}
-              />
-            ))}
+            {object.collaborators
+              .slice(0, maxDisplayedCollaborators - 1)
+              .map((collaborator, i) => (
+                <CardMedia
+                  key={i}
+                  className={clsx(
+                    classes.avatarPhoto,
+                    classes.collaboratorPhoto
+                  )}
+                  title={mockUsers[collaborator].name}
+                  image={IMAGES_USERS[collaborator]}
+                />
+              ))}
+            {object.collaborators.length > maxDisplayedCollaborators - 1 ? (
+              <div className={classes.moreCircle}>
+                +{object.collaborators.length - maxDisplayedCollaborators + 1}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </>
       ) : (
@@ -64,6 +88,7 @@ function CardCollaboratorContainer({ object }) {
 
 CardCollaboratorContainer.propTypes = {
   object: PropTypes.object.isRequired,
+  variant: PropTypes.string,
 };
 
 export default memo(CardCollaboratorContainer);

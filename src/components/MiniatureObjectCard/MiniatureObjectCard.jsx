@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { Card, CardContent, Divider, makeStyles } from "@material-ui/core";
+import { Card, CardContent, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import ObjectDisplay from "../ObjectDisplay/ObjectDisplay";
@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => ({
   card: {
     display: "flex",
     flexDirection: "column",
-    width: "300px",
-    padding: "12px 12px 12px 0px",
-    margin: "6px 6px 6px 0px",
+    width: "252px",
+    padding: "12px 0px 12px 0px",
+    marginBottom: "6px",
     boxShadow: "0px 0px 0px white",
     backgroundColor: "#fafafa",
   },
@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "flex-start",
     height: "fit-content",
+    marginBottom: "6px",
   },
 
   avatarContainer: {
@@ -38,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "flex-end",
     justifyContent: "space-between",
-  },
-
-  divider: {
-    margin: "0px 32px 0px 0px",
   },
 }));
 
@@ -53,19 +50,18 @@ function MiniatureObjectCard({ object, toggleCardFavorite }) {
         <ObjectDisplay
           object={object}
           toggleCardFavorite={toggleCardFavorite}
-          version="miniature"
+          variant="miniature"
         />
         <CardContent className={classes.content}>
           <div className={classes.contentTitleContainer}>
-            <ListTitleSection object={object} />
+            <ListTitleSection object={object} variant="miniature" />
           </div>
           <div className={classes.avatarContainer}>
-            <CardOwnerSection object={object} />
-            <CardCollaboratorContainer object={object} />
+            <CardOwnerSection object={object} variant="miniature" />
+            <CardCollaboratorContainer object={object} variant="miniature" />
           </div>
         </CardContent>
       </Card>
-      <Divider className={classes.divider} />
     </>
   );
 }
