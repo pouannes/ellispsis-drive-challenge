@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { CardMedia, Typography, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
@@ -80,4 +80,4 @@ CardOwnerSection.propTypes = {
   object: PropTypes.object.isRequired,
 };
 
-export default CardOwnerSection;
+export default memo(CardOwnerSection);

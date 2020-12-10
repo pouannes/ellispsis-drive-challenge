@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { Card, CardContent, Divider, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
@@ -73,4 +73,4 @@ ListObjectCard.propTypes = {
   toggleCardFavorite: PropTypes.func.isRequired,
 };
 
-export default ListObjectCard;
+export default memo(ListObjectCard);

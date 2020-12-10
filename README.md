@@ -2,15 +2,17 @@
 
 ## TODOS
 
-- Refactor the `Overview` components. In particular, move out the Fuse functions to a separate hook
+- Refactor the `Overview` components. In particular, move out the useEffects to its own reducer
 - Implement the `filters` drawer component and functionality
 - Add wiring to the left sidebar 
-- Add more examples of maps and shapes
 - Add wiring to the `sort` function
 - Implement the `Miniature` view
 - Implement the object `Settings` view
 - Deploy on Firebase + CD
 - Make the page fully responsive
+- Bug: favorites + recherche ne garde pas les favoris
+- Add footer 
+- Add 'no results' when there's no search result
 
 ## Improvements
 

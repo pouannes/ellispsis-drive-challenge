@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { Typography, IconButton, makeStyles } from "@material-ui/core";
 import { Settings } from "@material-ui/icons";
@@ -52,4 +52,4 @@ ListTitleSection.propTypes = {
   object: PropTypes.object.isRequired,
 };
 
-export default ListTitleSection;
+export default memo(ListTitleSection);

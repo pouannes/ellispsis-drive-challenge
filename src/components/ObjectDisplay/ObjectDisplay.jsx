@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import {
   CardMedia,
@@ -104,4 +104,4 @@ ObjectDisplay.propTypes = {
   toggleCardFavorite: PropTypes.func.isRequired,
 };
 
-export default ObjectDisplay;
+export default memo(ObjectDisplay);

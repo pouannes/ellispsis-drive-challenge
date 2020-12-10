@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { CardMedia, Typography, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
@@ -66,4 +66,4 @@ CardCollaboratorContainer.propTypes = {
   object: PropTypes.object.isRequired,
 };
 
-export default CardCollaboratorContainer;
+export default memo(CardCollaboratorContainer);

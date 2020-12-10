@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import FolderOpenOutlinedIcon from "@material-ui/icons/FolderOpenOutlined";
 import FolderSharedOutlinedIcon from "@material-ui/icons/FolderSharedOutlined";
 import FolderSpecialOutlinedIcon from "@material-ui/icons/FolderSpecialOutlined";
@@ -58,7 +58,7 @@ const useIconStyles = makeStyles((theme) => ({
   },
 }));
 
-function IconLink({ Icon, name, selected, changeFolder }) {
+const IconLink = memo(({ Icon, name, selected, changeFolder }) => {
   const classes = useIconStyles({ selected });
   const theme = useTheme();
   return (
@@ -81,7 +81,7 @@ function IconLink({ Icon, name, selected, changeFolder }) {
       </Typography>
     </div>
   );
-}
+});
 
 IconLink.propTypes = {
   Icon: PropTypes.object.isRequired,
@@ -90,4 +90,4 @@ IconLink.propTypes = {
   changeFolder: PropTypes.func.isRequired,
 };
 
-export default Sidebar;
+export default memo(Sidebar);
