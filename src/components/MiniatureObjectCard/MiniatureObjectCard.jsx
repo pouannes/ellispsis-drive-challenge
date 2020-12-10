@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
       theme.breakpoints.values.xs - CUSTOM_BREAKPOINT_DELTA
     )]: {
       flexDirection: "column !important",
+      marginBottom: "26px",
     },
     [theme.breakpoints.down("xs")]: {
       flexDirection: "row",
@@ -24,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up("xs")]: {
       flexDirection: "column",
+      width: "100%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      // flexDirection: "column",
       width: "252px",
     },
     padding: "12px 0px 12px 0px",

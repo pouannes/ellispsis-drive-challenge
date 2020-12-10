@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     display: "grid",
     [theme.breakpoints.up("xs")]: {
       gridTemplateColumns: "1fr 1fr",
+      gridGap: "0px 30px",
       "& div": {
         "&:nth-child(2n + 1)": {
           justifySelf: "start",

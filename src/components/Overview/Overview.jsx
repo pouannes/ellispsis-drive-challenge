@@ -28,14 +28,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       gridTemplateColumns: "1fr",
       gridTemplateRows: "1fr",
+      paddingTop: "10px",
     },
     [theme.breakpoints.up("xs")]: {
       gridTemplateColumns: "1fr",
       gridTemplateRows: "1fr",
+      paddingTop: "10px",
     },
     [theme.breakpoints.up("sm")]: {
       gridTemplateColumns: "auto 1fr auto",
       gridGap: "32px",
+      paddingTop: 0,
     },
     [theme.breakpoints.up("md")]: {
       gridTemplateColumns: "auto auto auto",
@@ -57,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
       top: 0,
       paddingTop: "34px",
       height: "calc(100vh - 64px)",
-      minWidth: "131px",
+      minWidth: "138px",
     },
   },
   browserContainer: {

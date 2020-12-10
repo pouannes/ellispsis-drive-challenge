@@ -18,11 +18,18 @@ const useStyles = makeStyles((theme) => ({
     color: "rgb(96,96,96)",
     fontSize: "0.8rem",
     alignSelf: "flex-end",
-    marginRight: "8px",
+    [theme.breakpoints.down("xs")]: {
+      // flexDirection: "column",
+      paddingRight: "8px",
+    },
   },
   collaboratorPhotosContainer: {
     display: "flex",
     justifyContent: "flex-end",
+    [theme.breakpoints.down("xs")]: {
+      // flexDirection: "column",
+      paddingRight: "8px",
+    },
   },
   avatarPhoto: {
     width: "40px",

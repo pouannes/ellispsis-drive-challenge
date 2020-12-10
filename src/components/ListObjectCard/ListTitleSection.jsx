@@ -4,12 +4,19 @@ import { Typography, IconButton, makeStyles } from "@material-ui/core";
 import { Settings } from "@material-ui/icons";
 import PropTypes from "prop-types";
 
+const CUSTOM_BREAKPOINT_DELTA = "170";
+
 const useStyles = makeStyles((theme) => ({
   titleContainer: {
     display: "flex",
     flex: "1 1 0%",
     position: "relative",
     marginTop: (props) => (props.variant === "miniature" ? "6px" : ""),
+    [theme.breakpoints.down(
+      theme.breakpoints.values.xs - CUSTOM_BREAKPOINT_DELTA
+    )]: {
+      marginBottom: "4px",
+    },
   },
   lastEditedText: {
     fontSize: "0.75rem",

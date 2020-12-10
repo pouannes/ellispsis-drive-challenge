@@ -11,6 +11,7 @@ import ListTitleSection from "./ListTitleSection";
 const useStyles = makeStyles((theme) => ({
   card: {
     display: "flex",
+    justifyContent: "space-between",
     padding: "12px 12px 12px 0px",
     margin: "6px 6px 6px 0px",
     boxShadow: "0px 0px 0px white",
@@ -20,9 +21,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     paddingBottom: "4px !important",
     marginLeft: "16px",
-    width: "calc(100% - 324px)",
     display: "flex",
+    flexGrow: "1",
     flexDirection: "column",
+    flexShrink: 1,
   },
   contentTitleContainer: {
     width: "100%",

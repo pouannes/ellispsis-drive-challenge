@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "580px",
     marginRight: "40px",
   },
+  searchInput: {
+    textOverflow: "ellipsis",
+  },
   button: {
     [theme.breakpoints.down("xs")]: {
       marginTop: "16px",
@@ -52,6 +55,7 @@ function Search({ searchValue, handleSearchValueChange, tabValue }) {
       <div className={classes.container}>
         <Input
           className={classes.searchField}
+          classes={{ input: `${classes.searchInput}` }}
           value={searchValue}
           onChange={handleSearchValueChange}
           placeholder={

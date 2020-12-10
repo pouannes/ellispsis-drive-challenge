@@ -23,10 +23,8 @@
 - Implement the `filters` drawer component and functionality
 - Add wiring to the left sidebar 
 - Add wiring to the `sort` function
-- Implement the `Miniature` view
 - Implement the object `Settings` view
-- Deploy on Firebase + CD
-- Make the page fully responsive
+- CD
 - Bug: favorites + recherche ne garde pas les favoris
 - Add 'no results' when there's no search result
 
