@@ -23,7 +23,6 @@
 - Implement the `filters` drawer component and functionality
 - Add wiring to the left sidebar 
 - Add wiring to the `sort` function
-- Implement the object `Settings` view
 - CD
 - Bug: favorites + recherche ne garde pas les favoris
 - Add 'no results' when there's no search result
@@ -34,8 +33,7 @@
 The following are some ideas of improvements to the page:
 - Better handling of overflow issues
   - For the titles of the objects
-- Virtualized lists
-- 
+- Virtualized lists if many lists are to be displayed on this page
 
 
 ## Available Scripts

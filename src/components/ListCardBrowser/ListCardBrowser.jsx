@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import ListObjectCard from "../ListObjectCard/ListObjectCard";
 
-function ListCardBrowser({ cards, toggleCardFavorite }) {
+function ListCardBrowser({ cards, toggleCardFavorite, setOpenSettings }) {
   return (
     <div>
       {cards.map((card, i) => (
@@ -11,6 +11,7 @@ function ListCardBrowser({ cards, toggleCardFavorite }) {
           object={card}
           key={i}
           toggleCardFavorite={() => toggleCardFavorite(card.name, card.type)}
+          setOpenSettings={() => setOpenSettings({ open: true, cardIndex: i })}
         />
       ))}
     </div>
@@ -20,6 +21,7 @@ function ListCardBrowser({ cards, toggleCardFavorite }) {
 ListCardBrowser.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleCardFavorite: PropTypes.func.isRequired,
+  setOpenSettings: PropTypes.func.isRequired,
 };
 
 export default ListCardBrowser;

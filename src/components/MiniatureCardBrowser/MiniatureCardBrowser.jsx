@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MiniatureCardBrowser({ cards, toggleCardFavorite }) {
+function MiniatureCardBrowser({ cards, toggleCardFavorite, setOpenSettings }) {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -60,6 +60,7 @@ function MiniatureCardBrowser({ cards, toggleCardFavorite }) {
           object={card}
           key={i}
           toggleCardFavorite={() => toggleCardFavorite(card.name, card.type)}
+          setOpenSettings={() => setOpenSettings({ open: true, cardIndex: i })}
         />
       ))}
     </div>
@@ -69,6 +70,7 @@ function MiniatureCardBrowser({ cards, toggleCardFavorite }) {
 MiniatureCardBrowser.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleCardFavorite: PropTypes.func.isRequired,
+  setOpenSettings: PropTypes.func.isRequired,
 };
 
 export default MiniatureCardBrowser;

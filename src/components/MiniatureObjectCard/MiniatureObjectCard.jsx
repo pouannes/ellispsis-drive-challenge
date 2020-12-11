@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       // flexDirection: "column",
       width: "252px",
+      marginBottom: "20px",
     },
     padding: "12px 0px 12px 0px",
     marginBottom: "6px",
@@ -73,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MiniatureObjectCard({ object, toggleCardFavorite }) {
+function MiniatureObjectCard({ object, toggleCardFavorite, setOpenSettings }) {
   const classes = useStyles({ uploadStatus: object.uploadStatus });
   return (
     <>
@@ -81,6 +82,7 @@ function MiniatureObjectCard({ object, toggleCardFavorite }) {
         <ObjectDisplay
           object={object}
           toggleCardFavorite={toggleCardFavorite}
+          setOpenSettings={setOpenSettings}
           variant="miniature"
         />
         <CardContent className={classes.content}>
@@ -100,6 +102,7 @@ function MiniatureObjectCard({ object, toggleCardFavorite }) {
 MiniatureObjectCard.propTypes = {
   object: PropTypes.object.isRequired,
   toggleCardFavorite: PropTypes.func.isRequired,
+  setOpenSettings: PropTypes.func.isRequired,
 };
 
 export default memo(MiniatureObjectCard);

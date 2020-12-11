@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
   uploadText: {
     position: "absolute",
     width: "fit-content",
+    textAlign: "center",
     visibility: (props) => (props.uploadStatus === "Uploading" ? "" : "hidden"),
     color: "rgb(80,80,80)",
     fontSize: "1.2rem",
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StarIcons = memo(({ object, toggleCardFavorite }) => {
+const StarIcons = memo(({ object, toggleCardFavorite, setOpenSettings }) => {
   const classes = useStyles();
   return (
     <IconButton
@@ -115,7 +116,12 @@ const StarIcons = memo(({ object, toggleCardFavorite }) => {
   );
 });
 
-function ObjectDisplay({ object, toggleCardFavorite, variant }) {
+function ObjectDisplay({
+  object,
+  toggleCardFavorite,
+  setOpenSettings,
+  variant,
+}) {
   const classes = useStyles({ uploadStatus: object.uploadStatus });
   return (
     <div className={classes.mediaContainer}>
@@ -128,7 +134,7 @@ function ObjectDisplay({ object, toggleCardFavorite, variant }) {
       {variant === "miniature" ? (
         <IconButton
           className={classes.settingsIconButton}
-          onClick={() => alert("settings still to be implemented!")}
+          onClick={() => setOpenSettings()}
         >
           <Settings fontSize="large" className={classes.settingsIcon} />
         </IconButton>
@@ -146,6 +152,7 @@ function ObjectDisplay({ object, toggleCardFavorite, variant }) {
 ObjectDisplay.propTypes = {
   object: PropTypes.object.isRequired,
   toggleCardFavorite: PropTypes.func.isRequired,
+  setOpenSettings: PropTypes.func,
   variant: PropTypes.string,
 };
 

@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListObjectCard({ object, toggleCardFavorite }) {
+function ListObjectCard({ object, toggleCardFavorite, setOpenSettings }) {
   const classes = useStyles({ uploadStatus: object.uploadStatus });
   return (
     <>
@@ -58,7 +58,10 @@ function ListObjectCard({ object, toggleCardFavorite }) {
         />
         <CardContent className={classes.content}>
           <div className={classes.contentTitleContainer}>
-            <ListTitleSection object={object} />
+            <ListTitleSection
+              object={object}
+              setOpenSettings={setOpenSettings}
+            />
           </div>
           <div className={classes.avatarContainer}>
             <CardOwnerSection object={object} />
@@ -74,6 +77,7 @@ function ListObjectCard({ object, toggleCardFavorite }) {
 ListObjectCard.propTypes = {
   object: PropTypes.object.isRequired,
   toggleCardFavorite: PropTypes.func.isRequired,
+  setOpenSettings: PropTypes.func.isRequired,
 };
 
 export default memo(ListObjectCard);

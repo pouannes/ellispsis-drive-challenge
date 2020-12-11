@@ -10,6 +10,7 @@ import Search from "../Search/Search";
 import BrowserToolbar from "../BrowserToolbar/BrowserToolbar";
 import ListCardBrowser from "../ListCardBrowser/ListCardBrowser";
 import MiniatureCardBrowser from "../MiniatureCardBrowser/MiniatureCardBrowser";
+import Settings from "../Settings/Settings";
 import useResultReducer from "../../hooks/useResultReducer";
 import useWindowSize from "../../hooks/useWindowSize";
 
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: "5%",
     },
     [theme.breakpoints.up("md")]: {
-      minWidth: "840px",
+      minWidth: "900px",
       paddingLeft: "0px",
       paddingRight: "0px",
     },
@@ -120,6 +121,11 @@ function Overview() {
   const [sortBy, setSortBy] = useState(0);
   // 0 for list display, 1 for miniature display
   const [currentDisplay, setCurrentDisplay] = useState(0);
+  // for opening settings for a map
+  const [openSettings, setOpenSettings] = useState({
+    open: false,
+    cardIndex: 0,
+  });
   const [searchValue, setSearchValue] = useState("");
   // clone of mockMaps/Shapes, to be able to freely modify them
   const [liveMockMaps, setLiveMockMaps] = useState(mockMaps);
@@ -264,14 +270,21 @@ function Overview() {
           <ListCardBrowser
             cards={searchResults.searchResult}
             toggleCardFavorite={toggleCardFavorite}
+            setOpenSettings={setOpenSettings}
           />
         ) : (
           <MiniatureCardBrowser
             cards={searchResults.searchResult}
             toggleCardFavorite={toggleCardFavorite}
+            setOpenSettings={setOpenSettings}
           />
         )}
       </div>
+      <Settings
+        openSettings={openSettings}
+        setOpenSettings={setOpenSettings}
+        cards={searchResults.searchResult}
+      />
     </div>
   );
 }

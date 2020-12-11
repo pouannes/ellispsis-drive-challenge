@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListTitleSection({ object, variant }) {
+function ListTitleSection({ object, setOpenSettings, variant }) {
   const classes = useStyles({ variant });
   return (
     <div className={classes.titleContainer}>
@@ -56,7 +56,7 @@ function ListTitleSection({ object, variant }) {
       ) : (
         <IconButton
           className={classes.settingsButton}
-          onClick={() => alert("settings clicked, to be implemented")}
+          onClick={() => setOpenSettings()}
         >
           <Settings fontSize="large" />
         </IconButton>
@@ -67,6 +67,7 @@ function ListTitleSection({ object, variant }) {
 
 ListTitleSection.propTypes = {
   object: PropTypes.object.isRequired,
+  setOpenSettings: PropTypes.func,
   variant: PropTypes.string,
 };
 
