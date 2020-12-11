@@ -1,8 +1,5 @@
 # Ellipsis-Drive Challenge: overview
 
-## Short description of the features
-
-
 ## Notes on the code and the implementation
 
 - The components are kept quite short on purpose, for better readability and maintainability. 
