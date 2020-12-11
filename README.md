@@ -11,6 +11,7 @@
 - The `Overview` page is served at `/overview` to mimic how it would be in a real app. `/` redirects to `/overview`.
 - Most of the colors are using the theme provided by the `Theme` context, so modifying most of the colors is a simple matter of modifying the `theme` object.
 - Styles object are kept in the same files as the components. They could be separated if either got too long.
+- The page is responsive and works on different sizes of computer, tablet and phone screens.
 - The main libraries used are:
   - `react-router-dom` for the small bit of routing used.
   - `fuse.js` for the fuzzy search.
