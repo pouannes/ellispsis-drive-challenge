@@ -15,18 +15,6 @@
   - `react-router-dom` for the small bit of routing used.
   - `fuse.js` for the fuzzy search.
   - `@material-ui/core` and `@material-ui/icons` as the UI library.
-  
-
-## TODOS
-
-- Refactor the `Overview` components. In particular, move out the useEffects to its own reducer
-- Implement the `filters` drawer component and functionality
-- Add wiring to the left sidebar 
-- Add wiring to the `sort` function
-- CD
-- Bug: favorites + recherche ne garde pas les favoris
-- Add 'no results' when there's no search result
-- Bug: better handle the 'upload in progress' for different screen sizes'
 
 ## Improvements
 
@@ -34,6 +22,8 @@ The following are some ideas of improvements to the page:
 - Better handling of overflow issues
   - For the titles of the objects
 - Virtualized lists if many lists are to be displayed on this page
+- Add a message when there's no result on the search
+- Implement the filters
 
 
 ## Available Scripts

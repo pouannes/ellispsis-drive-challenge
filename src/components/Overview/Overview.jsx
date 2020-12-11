@@ -14,6 +14,8 @@ import Settings from "../Settings/Settings";
 import useResultReducer from "../../hooks/useResultReducer";
 import useWindowSize from "../../hooks/useWindowSize";
 
+const user = "RosalieMaas";
+
 const useStyles = makeStyles((theme) => ({
   container: {
     position: "absolute",
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     justifyItems: "center",
     justifyContent: "space-between",
     display: "grid",
-    // ok for normal, side cells need to be bigger for large/v. large screens
+
     [theme.breakpoints.down("xs")]: {
       gridTemplateColumns: "1fr",
       gridTemplateRows: "1fr",
@@ -40,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
       gridTemplateColumns: "auto 1fr auto",
       gridGap: "32px",
       paddingTop: 0,
+      marginBottom: "200px",
     },
     [theme.breakpoints.up("md")]: {
       gridTemplateColumns: "auto auto auto",
@@ -101,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "0px",
       paddingRight: "0px",
     },
-    // ok for normal, maybe need to be bigger for large/v. large screens
     maxWidth: "840px",
   },
   browserTitle: {
@@ -133,7 +135,7 @@ function Overview() {
   // handle search with Fuse
   const [searchResults, dispatch] = useResultReducer();
 
-  const [width, height] = useWindowSize();
+  const [width] = useWindowSize();
 
   const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
@@ -190,22 +192,44 @@ function Overview() {
     dispatch,
   ]);
 
+  // sort searchResults
+  useEffect(() => {
+    switch (sortBy) {
+      case 0:
+        dispatch({ type: "sortLastEdited" });
+        break;
+      case 1:
+        dispatch({ type: "sortFirstEdited" });
+        break;
+      case 2:
+        dispatch({ type: "sortDecreasingSize" });
+        break;
+      case 3:
+        dispatch({ type: "sortIncreasingSize" });
+        break;
+      default:
+        console.log("Unknown sort by");
+    }
+  }, [sortBy, dispatch]);
+
   // search on search change
   useEffect(() => {
     if (searchValue.length > 0) {
-      if (tabValue === 0) {
-        dispatch({ type: "updateMapsSearch", payload: searchValue });
-      } else {
-        dispatch({ type: "updateShapesSearch", payload: searchValue });
-      }
+      dispatch({
+        type: tabValue === 0 ? "updateMapsSearch" : "updateShapesSearch",
+        payload: searchValue,
+      });
     } else {
       dispatch({
         type: "resetSearchResult",
         payload: tabValue === 0 ? liveMockMaps : liveMockShapes,
       });
-      if (currentFolder === 2) {
-        dispatch({ type: "filterFavorites" });
-      }
+    }
+    if (currentFolder === 1) {
+      dispatch({ type: "filterSharedWithMe", payload: user });
+    }
+    if (currentFolder === 2) {
+      dispatch({ type: "filterFavorites" });
     }
   }, [
     searchValue,
@@ -221,7 +245,7 @@ function Overview() {
     if (width < 1040 && currentDisplay === 0) {
       setCurrentDisplay(1);
     }
-  }, [width]);
+  }, [width, currentDisplay]);
 
   const toggleCardFavorite = (cardName, type) => {
     if (type === "map") {
@@ -240,7 +264,6 @@ function Overview() {
       setLiveMockShapes(newShapes);
     }
   };
-
   return (
     <div className={classes.container}>
       <nav className={classes.sidebarContainer}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Paper,
@@ -35,13 +35,9 @@ const useStyles = makeStyles((theme) => ({
 function Settings({ openSettings, setOpenSettings, cards }) {
   const classes = useStyles();
 
-  const [editTitle, setEditTitle] = useState(false);
-
   const handleClose = () => {
     setOpenSettings({ ...openSettings, open: false });
   };
-
-  console.log(openSettings);
 
   const card = cards[openSettings.cardIndex];
 

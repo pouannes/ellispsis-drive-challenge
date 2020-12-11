@@ -50,6 +50,37 @@ function resultReducer(state, action) {
           object.favorite ? object : null
         ),
       };
+    case "filterSharedWithMe":
+      return {
+        ...state,
+        searchResult: state.searchResult.filter((object) =>
+          object.collaborators.includes(action.payload) ? object : null
+        ),
+      };
+    case "sortLastEdited":
+      return {
+        ...state,
+        searchResult: [...state.searchResult].sort(
+          (a, b) => Date.parse(b.lastEdited) - Date.parse(a.lastEdited)
+        ),
+      };
+    case "sortFirstEdited":
+      return {
+        ...state,
+        searchResult: [...state.searchResult].sort(
+          (a, b) => Date.parse(a.lastEdited) - Date.parse(b.lastEdited)
+        ),
+      };
+    case "sortIncreasingSize":
+      return {
+        ...state,
+        searchResult: [...state.searchResult].sort((a, b) => a.size - b.size),
+      };
+    case "sortDecreasingSize":
+      return {
+        ...state,
+        searchResult: [...state.searchResult].sort((a, b) => b.size - a.size),
+      };
     default:
       throw new Error();
   }
