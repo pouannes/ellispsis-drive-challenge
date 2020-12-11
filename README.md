@@ -1,5 +1,7 @@
 # Ellipsis-Drive Challenge: some notes
 
+[Demo vide link!](https://youtu.be/rKSvPeR1zgo)
+
 ## Notes on the code and the implementation
 
 - The components are kept quite short on purpose, for better readability and maintainability.
