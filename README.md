@@ -1,8 +1,9 @@
-# Ellipsis-Drive Challenge: overview
+# Ellipsis-Drive Challenge: some notes
 
 ## Notes on the code and the implementation
 
-- The components are kept quite short on purpose, for better readability and maintainability. 
+- The components are kept quite short on purpose, for better readability and maintainability.
+  - The `Overview` component is on the longer side, mainly because I kept all the logic there. If necessary, that logic could be refactored out with custom hooks for example.
 - I didn't separate logic and layout in components, mainly because I feel that using functional components make this separation less relevant.
 - I kept the file structure quite flat because I feel it isn't large enough to do otherwise. In larger apps more hierarchy could be necessary.
 - The `Overview` page is served at `/overview` to mimic how it would be in a real app. `/` redirects to `/overview`.
@@ -20,7 +21,8 @@ The following are some ideas of improvements to the page:
   - For the titles of the objects
 - Virtualized lists if many lists are to be displayed on this page
 - Add a message when there's no result on the search
-- Implement the filters
+- Implement the filters functionality
+- Implement the settings menu
 
 
 ## Available Scripts
