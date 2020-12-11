@@ -103,6 +103,7 @@ IconLink.propTypes = {
 const useMobileSidebarStyles = makeStyles((theme) => ({
   root: {
     background: "white",
+    zIndex: 1000,
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
