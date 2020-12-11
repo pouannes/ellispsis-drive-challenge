@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     top: "64px",
     left: "0",
     width: "100vw",
+    height: "auto",
     maxWidth: "1800px",
     marginLeft: "calc((100% - min(100vw, 1800px)) / 2)",
     justifyItems: "center",
@@ -42,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
       gridTemplateColumns: "auto 1fr auto",
       gridGap: "32px",
       paddingTop: 0,
-      marginBottom: "200px",
     },
     [theme.breakpoints.up("md")]: {
       gridTemplateColumns: "auto auto auto",
